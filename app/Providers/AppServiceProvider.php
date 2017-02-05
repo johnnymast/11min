@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      //  \View::share('pages', (new Page)->allActive());
+        \View::share('pages', (new Page)->allActive());
         \View::share('slug', '');
 
     }
