@@ -18,6 +18,7 @@
         <li>Cronjob voor wissen van mailboxen die gexpired zijn</li>
         <li>opschonen</li>
         <li>Modal close icon op mobiel ziet er niet uit</li>
+        <li>Admin one</li>
     </ul>
     <h2 class="title is-2 has-text-centered is-large" style="text-transform: uppercase">Your emails</h2>
     <mailbox/>
