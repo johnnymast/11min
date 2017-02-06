@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\CleanupReport;
 use Illuminate\Console\Command;
 
 class CleanupCommand extends Command
@@ -11,14 +12,14 @@ class CleanupCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'Project:clean';
+    protected $signature = 'project:clean';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Cleanup old accounts and emails';
 
     /**
      * Create a new command instance.
@@ -37,6 +38,20 @@ class CleanupCommand extends Command
      */
     public function handle()
     {
-        //
+        $accounts = (new \App\Account)->getExpiredAccounts();
+        $admin = \App\User::whereAdmin(false)->first();
+        $cleaned = count($account);
+
+        if (is_array($accounts) == true) {
+            foreach ($accounts as $account) {
+
+            }
+        }
+
+        if ($admin) {
+            Mail::to($admin)
+                ->send(new CleanupReport($cleaned));
+        }
+        
     }
 }

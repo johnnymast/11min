@@ -18,6 +18,9 @@ class Account extends Model
         'unique_id', 'email', 'expired', 'expires_at'
     ];
 
+    public function getExpiredAccounts() {
+        return $this->where('expired', true)->get();
+    }
 
     /**
      * Create the mail account.
