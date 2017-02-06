@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Mail\CleanupReport;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class CleanupCommand extends Command
 {
@@ -22,16 +23,6 @@ class CleanupCommand extends Command
     protected $description = 'Cleanup old accounts and emails';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -39,12 +30,27 @@ class CleanupCommand extends Command
     public function handle()
     {
         $accounts = (new \App\Account)->getExpiredAccounts();
-        $admin = \App\User::whereAdmin(false)->first();
-        $cleaned = count($account);
+        $admin = \App\User::whereAdmin(true)->first();
+        $cleaned = 0;
 
-        if (is_array($accounts) == true) {
+        if ($accounts) {
             foreach ($accounts as $account) {
+                $mailbox = $account->unique_id;
+                $reader = \App::make('MailReader');
 
+                $reader->setMailbox($mailbox);
+                $messages = $reader->readMailbox();
+
+                if (is_array($messages) == true) {
+                    foreach ($messages as $message) {
+                        $reader->deleteMessage($message['index']);
+                    }
+                }
+
+                $reader->removeMailbox($mailbox);
+                $account->delete();
+
+                $cleaned++;
             }
         }
 
@@ -52,6 +58,5 @@ class CleanupCommand extends Command
             Mail::to($admin)
                 ->send(new CleanupReport($cleaned));
         }
-        
     }
 }

@@ -43,6 +43,7 @@ class Web extends Controller
             ]);
         } catch (\Exception $e) {
             dd($e);
+
             return \Redirect::route('retire');
         }
 
@@ -54,20 +55,6 @@ class Web extends Controller
     {
         if (($account = Account::where('unique_id', session('account'))->first())) {
 
-            $mailbox = $account->unique_id;
-
-            $reader = \App::make('MailReader');
-
-            $reader->setMailbox($mailbox);
-            $messages = $reader->readMailbox();
-
-            if (is_array($messages) == true) {
-                foreach ($messages as $message) {
-                    $reader->deleteMessage($message['index']);
-                }
-            }
-
-            $reader->removeMailbox($mailbox);
             $account->expired = true;
             $account->save();
         }

@@ -49,11 +49,10 @@ class WelcomeMail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-             //       ->from(config('mail.from.address', config('app.name')))
                     ->subject('Welcome to '.config('app.name').'!')
                     ->line('This is the first message on '.$this->account->email.'.')
                     ->line('Your temporary email account will be valid until '.$this->account->expires_at.' after this you will be asked if you wish to extend this period.');
-                  //  ->action('Notification Action', 'https://laravel.com');
+
     }
 
     /**
