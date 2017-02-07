@@ -44,7 +44,7 @@ class Mail extends Controller
             $emails = $reader->readMailbox();
             $data = [];
 
-            $account->last_check = \Carbon\Carbon::createFromTimestamp(time(), 'GMT');
+            $account->last_check = \Carbon\Carbon::createFromTimestamp(time());
             $account->save();
 
             foreach ($emails as $email) {
@@ -102,7 +102,7 @@ class Mail extends Controller
 
         if (($account = Account::where('unique_id', session('account', null))->first())) {
             $newTime = strtotime("+10 MIN", strtotime($account->expires_at));
-            $account->expires_at = \Carbon\Carbon::createFromTimestamp($newTime, 'GMT');
+            $account->expires_at = \Carbon\Carbon::createFromTimestamp($newTime);
             $account->save();
 
             $data['expires_at'] = date(self::EXPIRATION_TIME_FORMAT, strtotime($account->expires_at));

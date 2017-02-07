@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Account;
 use Illuminate\Console\Command;
 
 class ExpireCommand extends Command
@@ -11,7 +12,7 @@ class ExpireCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'project:clean';
+    protected $signature = 'project:expire';
 
     /**
      * The console command description.
@@ -28,6 +29,10 @@ class ExpireCommand extends Command
      */
     public function handle()
     {
+        $accounts = (new Account())->getInactiveAccounts();
+
+
+        dd($accounts);
 
     }
 }

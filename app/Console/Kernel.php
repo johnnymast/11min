@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-       'App\Console\Commands\CleanupCommand',
+        'App\Console\Commands\CleanupCommand',
+        'App\Console\Commands\ExpireCommand'
     ];
 
     /**
