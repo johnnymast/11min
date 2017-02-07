@@ -44,6 +44,9 @@ class Mail extends Controller
             $emails = $reader->readMailbox();
             $data = [];
 
+            $account->last_check = \Carbon\Carbon::createFromTimestamp(time(), 'GMT');
+            $account->save();
+
             foreach ($emails as $email) {
                 $data[] = [
                     'from'    => $email['header']->from[0]->personal,
