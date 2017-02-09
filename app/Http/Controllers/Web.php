@@ -43,8 +43,6 @@ class Web extends Controller
         } catch (\Exception $e) {
             return \Redirect::route('retire');
         }
-
-
     }
 
 
