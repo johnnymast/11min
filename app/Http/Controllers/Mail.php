@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Mail extends Controller
 {
 
-    const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s T';
+    const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s';
 
 
     public function dataSource()

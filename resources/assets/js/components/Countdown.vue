@@ -46,7 +46,8 @@
                 countdown_interval: null,
                 remaining_interval: null,
                 now: Math.trunc((new Date()).getTime() / 1000),
-                event: this.date
+                event: this.date,
+                isExpired: false,
             }
         },
         methods: {
@@ -62,9 +63,23 @@
         },
         computed: {
             expired() {
+
                 if ((this.now - this.calculateDate) >= 0) {
+                    this.isExpired = true;
                     this.showModal = true;
+
+                    setTimeout(function() {
+                        Event.fire('expired', false);
+                    }, 2000);
+
                     return true;
+                } else {
+                    if (this.isExpired == true) {
+                        this.showModal = false;
+                        this.isExpired = false
+
+                        Event.fire('expired', true);
+                    }
                 }
                 return false;
             },
@@ -79,7 +94,6 @@
             minutes() {
                 return Math.trunc((this.calculateDate - this.now) / 60) % 60;
             },
-
             hours() {
                 return Math.trunc((this.calculateDate - this.now) / 60 / 60) % 24;
             },
@@ -88,7 +102,6 @@
             }
         },
         mounted() {
-
             this.remaining_interval = window.setInterval(() => {
                 if (this.expired == false)
                     axios.get('/remaining_time').then(response => this.event = response.data.expires_at);
@@ -107,13 +120,11 @@
 
 <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400|Roboto:100);
-
     .block {
         margin: 19px;
         margin-top: 0px;
         float: left;
     }
-
     .text {
         color: #1abc9c;
         font-size: 20px;
@@ -122,7 +133,6 @@
         margin-bottom: 10px;
         text-align: center;
     }
-
     .digit {
         color: #ecf0f1;
         font-size: 35px;

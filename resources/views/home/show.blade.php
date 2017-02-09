@@ -15,5 +15,5 @@
 
 @section('content_right')
     <h2 class="title is-2 has-text-centered is-large" style="text-transform: uppercase">Your emails</h2>
-    <mailbox/>
+    <mailbox  />
 @endsection

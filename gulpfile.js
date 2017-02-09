@@ -15,17 +15,14 @@ require('laravel-elixir-vue-2');
 
 elixir(mix => {
     mix.sass('app.scss')
-    .webpack([
-        'app.js',
-    ]);
-    mix.scripts([
-        'clipboard.min.js',
-        'general.js',
-        'bulma.js'
-    ]);
-    mix.styles([
-        'base.css',
-        'bulma.css',
-        'custom.css',
-    ]);
+        .webpack('app.js')
+        .scripts([
+            'clipboard.min.js',
+            'general.js',
+            'bulma.js'
+        ]).styles([
+            'base.css',
+            'bulma.css',
+            'custom.css',
+        ]);
 });

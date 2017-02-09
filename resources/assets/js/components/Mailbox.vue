@@ -1,5 +1,4 @@
 <template>
-    <!--  <table class="table is-striped is-narrow is-fullwidth table is-bordered"> -->
     <table class="table is-bordered is-narro">
         <thead>
         <tr>
@@ -32,7 +31,8 @@
         data() {
             return {
                 emails: [],
-                check_interval: 1000 * 10 /* 10 sec */
+                check_interval: 1000 * 5, /* 10 sec */
+                expired: false,
             }
         },
         methods: {
@@ -40,13 +40,21 @@
                 window.location.href = '/read_email/'+email['msgid'];
             }
         },
+        computed: {
+            isExpired() {
+               return this.expired;
+            }
+        },
         mounted() {
-            axios.get('/datasource').then(response => this.emails = response.data);
+            Event.listen('expired', (expired) => {
+                this.expired = expired;
+            });
 
             this.remaining_interval = window.setInterval(() => {
+                if (this.isExpired == false) {
                     axios.get('/datasource').then(response => this.emails = response.data);
+                }
             }, this.check_interval);
-
         }
     }
 </script>

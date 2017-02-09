@@ -13,11 +13,26 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('modal', require('./components/Modal.vue'));
-Vue.component('countdown', require('./components/Countdown.vue'));
-Vue.component('mailbox', require('./components/Mailbox.vue'));
+window.Event = new class {
+    constructor() {
+        this.vue = new Vue;
+    }
 
-const app = new Vue({
+    fire(event, data = null) {
+        this.vue.$emit(event, data);
+    }
+
+    listen(event, callback) {
+        this.vue.$on(event, callback);
+    }
+}
+
+Vue.component('modal', require('./components/Modal.vue'));
+Vue.component('mailbox', require('./components/Mailbox.vue'));
+Vue.component('countdown', require('./components/Countdown.vue'));
+
+
+var _app = new Vue({
     el: '#root'
 });
+

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class Web extends Controller
 {
 
-    const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s T';
+    const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s';
 
 
     public function index()
