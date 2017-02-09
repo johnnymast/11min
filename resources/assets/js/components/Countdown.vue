@@ -16,7 +16,6 @@
             <p class="digit">{{ seconds | two_digits }}</p>
             <p class="text">Seconds</p>
         </div>
-      <!--  <div style="clear: both; width: 100%">&nbsp;</div>-->
         <modal v-if="expired" @close="retireAccount" title="Mailbox expired" body="Your mailbox has expired. You can choose your increase the time with your mailbox or to close it for a new one. Please make your choice.">
             <footer class="modal-card-foot">
                 <a class="button is-primary" @click="addTime">Reset time</a>
@@ -48,6 +47,7 @@
                 now: Math.trunc((new Date()).getTime() / 1000),
                 event: this.date,
                 isExpired: false,
+                isMailboxReady: false,
             }
         },
         methods: {
@@ -63,24 +63,22 @@
         },
         computed: {
             expired() {
+            	if (this.isMailboxReady == true) {
+					if ((this.now - this.calculateDate) >= 0) {
+						this.isExpired = true;
+						this.showModal = true;
 
-                if ((this.now - this.calculateDate) >= 0) {
-                    this.isExpired = true;
-                    this.showModal = true;
+						Event.fire('expired',
+						true);
 
-                    setTimeout(function() {
-                        Event.fire('expired', false);
-                    }, 2000);
+						return true;
+					}
 
-                    return true;
-                } else {
-                    if (this.isExpired == true) {
-                        this.showModal = false;
-                        this.isExpired = false
-
-                        Event.fire('expired', true);
-                    }
-                }
+					if (this.isExpired == true) {
+						this.isExpired = false
+						Event.fire('expired', false);
+					}
+				}
                 return false;
             },
             calculateDate() {
@@ -111,10 +109,12 @@
                 if (this.expired == false)
                     this.now = Math.trunc((new Date()).getTime() / 1000);
             }, 1000);
+
+            Event.listen('mailbox_ready', () => {
+				this.isMailboxReady = true;
+            });
         }
     }
-
-
 </script>
 
 

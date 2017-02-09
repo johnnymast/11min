@@ -28,7 +28,7 @@ class Web extends Controller
                         'email'   => $account->email
                     ]);
 
-                    $account->notify(new WelcomeMail($account));
+                    //$account->notify(new WelcomeMail($account));
                 }
             } else {
 

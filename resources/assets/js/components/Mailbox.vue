@@ -55,6 +55,8 @@
                     axios.get('/datasource').then(response => this.emails = response.data);
                 }
             }, this.check_interval);
+
+            Event.fire('mailbox_ready');
         }
     }
 </script>
