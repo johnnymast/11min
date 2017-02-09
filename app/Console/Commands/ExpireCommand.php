@@ -30,9 +30,9 @@ class ExpireCommand extends Command
     public function handle()
     {
         $accounts = (new Account())->getInactiveAccounts();
-
-
-        dd($accounts);
-
+        foreach ($accounts as $account) {
+            $account->expired = true;
+            $account->save();
+        }
     }
 }

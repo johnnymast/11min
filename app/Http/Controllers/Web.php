@@ -15,9 +15,6 @@ class Web extends Controller
 
     public function index()
     {
-
-        echo date(self::EXPIRATION_TIME_FORMAT, time());
-
         try {
 
             if (session()->has('account') == false) {
@@ -44,8 +41,6 @@ class Web extends Controller
                 'account' => $account->toArray(),
             ]);
         } catch (\Exception $e) {
-            dd($e);
-
             return \Redirect::route('retire');
         }
 

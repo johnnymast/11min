@@ -33,8 +33,8 @@ class Account extends Model
     public function getInactiveAccounts()
     {
         return $this->whereBetween('last_check', [
-                Carbon::now()->subHours(1),
-                Carbon::now()
+                Carbon::now()->subHours(2),
+                Carbon::now()->subHours(1)
             ])->where('expired', false)->where('expires_at', '<', Carbon::now())->get();
     }
 
