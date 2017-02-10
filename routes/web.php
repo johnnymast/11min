@@ -29,7 +29,7 @@ Route::group([
     Route::get('/datasource', 'Mail@dataSource')->middleware('account.is_valid_account');
     Route::get('/remaining_time', 'Mail@getRemainingTime')->middleware('account.is_valid_account');
     Route::get('/add_time', 'Mail@addTime')->middleware('account.is_valid_account');
-    Route::get('/reset', 'Mail@resetTime');
+    Route::get('/reset_time', 'Mail@resetTime');
     Route::get('/read_email/{mailId}', 'Web@displayMail')->middleware('account.is_valid_account');
     Route::get('/send_email', 'Mail@sendEmail')->middleware('account.is_valid_account');
     Route::get('/retire', 'Web@retire')->name('retire'); //->middleware('account.is_valid_account');;

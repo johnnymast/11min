@@ -71,9 +71,11 @@ class Mail extends Controller
      */
     public function resetTime()
     {
-        if (($account = Account::where('unique_id', session('account', null)))) {
-            $account->expires_at = date(self::EXPIRATION_TIME_FORMAT, strtotime("+10 MIN"));
+        if (($account = Account::where('unique_id', session('account', null))->first())) {
+            $account->expires_at =  \Carbon\Carbon::now()->addMinutes(10);
             $account->save();
+            $data['expires_at'] = date(self::EXPIRATION_TIME_FORMAT, strtotime($account->expires_at));
+            return $data;
         }
     }
 

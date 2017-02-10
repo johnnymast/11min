@@ -18,7 +18,7 @@
         </div>
         <modal v-if="expired" @close="retireAccount" title="Mailbox expired" body="Your mailbox has expired. You can choose your increase the time with your mailbox or to close it for a new one. Please make your choice.">
             <footer class="modal-card-foot">
-                <a class="button is-primary" @click="addTime">Reset time</a>
+                <a class="button is-primary" @click="resetTime">Reset time</a>
                 <a class="button is-danger" @click="retireAccount">Retire mailbox</a>
             </footer>
         </modal>
@@ -55,7 +55,7 @@
                 axios.get('/add_time').then(response => this.event = response.data.expires_at);
             },
             resetTime() {
-                axios.get('/resetTime').then();
+                axios.get('/reset_time').then(response => this.event = response.data.expires_at);
             },
             retireAccount() {
                 window.location.href = '/retire';
