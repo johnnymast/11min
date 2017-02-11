@@ -13,7 +13,8 @@
         "doctrine/dbal": "^2.5",
 
         "thomaswelton/laravel-gravatar": "^1.1",
-        "greggilbert/recaptcha": "dev-master"
+        "greggilbert/recaptcha": "dev-master",
+        "filp/whoops": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
