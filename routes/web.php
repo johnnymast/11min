@@ -32,7 +32,7 @@ Route::group([
     Route::get('/reset_time', 'Mail@resetTime');
     Route::get('/read_email/{mailId}', 'Web@displayMail')->middleware('account.is_valid_account');
     Route::get('/send_email', 'Mail@sendEmail')->middleware('account.is_valid_account');
-    Route::get('/retire', 'Web@retire')->name('retire'); //->middleware('account.is_valid_account');;
+    Route::get('/retire', 'Web@retire')->name('retire')->middleware('account.is_valid_account');;
 
 });
 
@@ -43,7 +43,7 @@ Route::get('/contact', 'ContactController@show')->name('contact');
 Route::post('/contact', 'ContactController@store')->name('contact_store');
 
 
-Route::group(['middleware' => 'isAuthEnabled'], function()
+Route::group(['middleware' => ['isAuthEnabled', 'isValidAdmin', 'minify_html']], function()
 {
     Route::resource('pages', 'PagesController', [
         'except' => ['show'],

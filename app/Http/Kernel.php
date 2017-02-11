@@ -56,5 +56,6 @@ class Kernel extends HttpKernel
         'account.is_valid_account' => \App\Http\Middleware\isValidAcount::class,
         'minify_html' => \App\Http\Middleware\MinifyHtml::class,
         'isAuthEnabled' => \App\Http\Middleware\isAuthEnabled::class,
+        'isValidAdmin' => \App\Http\Middleware\isValidAdmin::class,
     ];
 }
