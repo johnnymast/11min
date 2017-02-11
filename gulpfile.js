@@ -16,7 +16,7 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix
         .sass('app.scss')
-        .sass('font-awesome/font-awesome.scss')
+        .sass('font-awesome/font-awesome.scss', 'resources/assets/css/font-awesome.css')
         .webpack('app.js', 'all.js')
         .scripts([
             'clipboard.min.js',
@@ -26,5 +26,6 @@ elixir(mix => {
             'base.css',
             'bulma.css',
             'custom.css',
+            'font-awesome.css',
         ]);
 });
