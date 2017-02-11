@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-use App\Notifications\WelcomeMail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -17,7 +16,6 @@ class Web extends Controller
     {
         try {
 
-            echo date(self::EXPIRATION_TIME_FORMAT, strtotime("+10 MIN", time()));
             if (session()->has('account') == false) {
                 if (($account = Account::generate())) {
 
