@@ -18,6 +18,7 @@
 	ExpiresByType image/png "access 1 year"
 	ExpiresByType text/css "access 1 yeah"
 	ExpiresByType text/html "access 1 year"
+	ExpiresByType application/octet-stream "access 1 year"
 	ExpiresByType application/pdf "access 1 month"
 	ExpiresByType text/x-javascript "access 1 year"
 	ExpiresByType application/x-shockwave-flash "access 1 month"
