@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <title>{{ config('app.name') }}</title>
     {{--<link rel="stylesheet" href="/css/font-awesome.css">--}}
+    <link href="/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/css/all.css">
     <script src="/js/axios.min.js"></script>
     @yield('header_extra_scripts')
