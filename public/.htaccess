@@ -1,3 +1,7 @@
+Header set Access-Control-Allow-Origin "http://localhost:3501"
+Header set Access-Control-Allow-Methods "GET,POST,PUT,DELETE,OPTIONS"
+Header set Access-Control-Allow-Credentials "true"
+
 <ifModule mod_gzip.c>
 	mod_gzip_on Yes
 	mod_gzip_dechunk Yes
