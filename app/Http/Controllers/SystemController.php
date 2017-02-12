@@ -135,10 +135,9 @@ class SystemController extends Controller
             $account->last_check = Carbon::createFromTimestamp(time());
             $account->save();
 
-            dd($emails);
             foreach ($emails as $email) {
                 $data[] = [
-                    'from'    => $email['header']->from[0]->personal,
+                    'from'    => $email['header']->fromaddress,
                     'to'      => $email['header']->to,
                     'subject' => $email['header']->subject,
                     'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
