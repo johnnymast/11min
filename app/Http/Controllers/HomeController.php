@@ -35,6 +35,8 @@ class HomeController extends Controller
                 }
             }
 
+            $account['expires_at'] = Account::formatTimestamp(strtotime($account['expires_at']));
+
             return view('home.show', [
                 'account' => $account->toArray(),
             ]);
