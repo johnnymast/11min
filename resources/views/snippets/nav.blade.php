@@ -2,7 +2,9 @@
     <div class="container">
         <div class="nav-left">
             <a class="nav-item" href="/">
+                <!--
                 <img src="http://orig02.deviantart.net/5590/f/2007/089/c/7/tux_g2_by_orksovaj.png" alt="Description">
+                -->
             </a>
         </div>
         <span class="nav-toggle">
