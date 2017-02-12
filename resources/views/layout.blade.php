@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/ios/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/ios/apple-icon-72x72.png" />
+
+
     <title>{{ config('app.name') }}</title>
     @yield('header_extra_meta_tags')
 
