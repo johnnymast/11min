@@ -21,7 +21,7 @@ require('vue-resource');
 
 
 window.axios = require('axios');
-
+console.log(window.axios);
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
