@@ -193,11 +193,11 @@ class SystemController extends Controller
                     ]);
 
                 } catch (\Exception $e) {
-                    abort(500);
+                    dd($e);
+                  //  abort(500);
                 }
             }
         } else {
-            dd('hier');
             abort(404);
         }
     }
