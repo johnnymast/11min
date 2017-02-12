@@ -64,7 +64,7 @@ class CleanupCommand extends Command
             if ($account) {
                 $account->delete();
             }
-
+            echo "Error: ".$e->getMessage();
         }
 
         if ($admin) {
