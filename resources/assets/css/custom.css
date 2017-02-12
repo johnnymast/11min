@@ -1,3 +1,7 @@
 .footer {
     background-color: transparent;
 }
+
+.delete {
+    font-size: inherit !important;
+}

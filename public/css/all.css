@@ -6078,6 +6078,9 @@ label.panel-block:hover {
     background-color: transparent;
 }
 
+.delete {
+    font-size: inherit !important;
+}
 @charset "UTF-8";
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
