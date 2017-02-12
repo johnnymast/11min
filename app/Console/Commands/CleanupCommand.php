@@ -29,29 +29,42 @@ class CleanupCommand extends Command
      */
     public function handle()
     {
-        $accounts = (new \App\Account)->getExpiredAccounts();
-        $admin = \App\User::whereAdmin(true)->first();
-        $cleaned = 0;
+        try {
 
-        if ($accounts) {
-            foreach ($accounts as $account) {
-                $mailbox = $account->unique_id;
-                $reader = \App::make('MailReader');
+            $accounts = (new \App\Account)->getExpiredAccounts();
+            $admin = \App\User::whereAdmin(true)->first();
+            $cleaned = 0;
 
-                $reader->setMailbox($mailbox);
-                $messages = $reader->readMailbox();
+            if ($accounts) {
+                foreach ($accounts as $account) {
+                    $mailbox = $account->unique_id;
+                    $reader = \App::make('MailReader');
 
-                if (is_array($messages) == true) {
-                    foreach ($messages as $message) {
-                        $reader->deleteMessage($message['index']);
+                    $reader->setMailbox($mailbox);
+                    $messages = $reader->readMailbox();
+
+                    if (is_array($messages) == true) {
+                        foreach ($messages as $message) {
+                            $reader->deleteMessage($message['index']);
+                        }
                     }
+
+                    $reader->removeMailbox($mailbox);
+                    $account->delete();
+
+                    $cleaned++;
                 }
-
-                $reader->removeMailbox($mailbox);
-                $account->delete();
-
-                $cleaned++;
             }
+
+        } catch (\Exception $e) {
+            /**
+             * If something went wrong with the
+             * iMAP stuff just delete the account.
+             */
+            if ($account) {
+                $account->delete();
+            }
+
         }
 
         if ($admin) {
