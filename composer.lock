@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7158afef35735f5fe9ea2022c2674644",
+    "content-hash": "14c0c26f3f071e8320eff68b57efd729",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -427,16 +427,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.11",
+            "version": "v2.5.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "1b1effbddbdc0f40d1c8f849f44bcddac4f52a48"
+                "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/1b1effbddbdc0f40d1c8f849f44bcddac4f52a48",
-                "reference": "1b1effbddbdc0f40d1c8f849f44bcddac4f52a48",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/7b9e911f9d8b30d43b96853dab26898c710d8f44",
+                "reference": "7b9e911f9d8b30d43b96853dab26898c710d8f44",
                 "shasum": ""
             },
             "require": {
@@ -494,7 +494,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-02-04T21:20:13+00:00"
+            "time": "2017-02-08T12:53:47+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -876,16 +876,16 @@
         },
         {
             "name": "johnnymast/mailreader",
-            "version": "v1.1",
+            "version": "v1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnnymast/mailreader.git",
-                "reference": "254ffcd832d90732a19f8e9e6380ee9aa606e41f"
+                "reference": "5b9211cff5244747ce00a9798c4c71dc718e0c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnnymast/mailreader/zipball/254ffcd832d90732a19f8e9e6380ee9aa606e41f",
-                "reference": "254ffcd832d90732a19f8e9e6380ee9aa606e41f",
+                "url": "https://api.github.com/repos/johnnymast/mailreader/zipball/5b9211cff5244747ce00a9798c4c71dc718e0c6c",
+                "reference": "5b9211cff5244747ce00a9798c4c71dc718e0c6c",
                 "shasum": ""
             },
             "require": {
@@ -912,7 +912,7 @@
                 }
             ],
             "description": "Get your email messages from mailserver",
-            "time": "2017-01-22T13:52:56+00:00"
+            "time": "2017-02-12T19:51:41+00:00"
         },
         {
             "name": "laravel/framework",
@@ -1098,16 +1098,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.34",
+            "version": "1.0.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299"
+                "reference": "dda7f3ab94158a002d9846a97dc18ebfb7acc062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
-                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/dda7f3ab94158a002d9846a97dc18ebfb7acc062",
+                "reference": "dda7f3ab94158a002d9846a97dc18ebfb7acc062",
                 "shasum": ""
             },
             "require": {
@@ -1177,7 +1177,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-01-30T17:41:17+00:00"
+            "time": "2017-02-09T11:33:58+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -1417,16 +1417,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "5b8182cc0abb4b0ff290ba9df6c0e1323286013a"
+                "reference": "0bf561dfe75ba80441c22adecc0529056671a7d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/5b8182cc0abb4b0ff290ba9df6c0e1323286013a",
-                "reference": "5b8182cc0abb4b0ff290ba9df6c0e1323286013a",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/0bf561dfe75ba80441c22adecc0529056671a7d2",
+                "reference": "0bf561dfe75ba80441c22adecc0529056671a7d2",
                 "shasum": ""
             },
             "require": {
@@ -1464,7 +1464,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2017-02-03T21:57:31+00:00"
+            "time": "2017-02-10T20:20:03+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1890,7 +1890,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.2.2",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -2861,16 +2861,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.7",
+            "version": "0.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371"
+                "reference": "1e5e2ffdc4d71d7358ed58a6fdd30a4a0c506855"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/4de7969f4664da3cef1ccd83866c9f59378c3371",
-                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/1e5e2ffdc4d71d7358ed58a6fdd30a4a0c506855",
+                "reference": "1e5e2ffdc4d71d7358ed58a6fdd30a4a0c506855",
                 "shasum": ""
             },
             "require": {
@@ -2922,7 +2922,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-12-19T14:50:55+00:00"
+            "time": "2017-02-09T13:29:38+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3421,16 +3421,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.10",
+            "version": "5.7.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "bf0804199f516fe80ffcc48ac6d4741c49baeb6e"
+                "reference": "60ebeed87a35ea46fd7f7d8029df2d6f013ebb34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/bf0804199f516fe80ffcc48ac6d4741c49baeb6e",
-                "reference": "bf0804199f516fe80ffcc48ac6d4741c49baeb6e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/60ebeed87a35ea46fd7f7d8029df2d6f013ebb34",
+                "reference": "60ebeed87a35ea46fd7f7d8029df2d6f013ebb34",
                 "shasum": ""
             },
             "require": {
@@ -3499,7 +3499,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-04T09:03:53+00:00"
+            "time": "2017-02-10T09:05:10+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -4184,16 +4184,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.2",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "50eadbd7926e31842893c957eca362b21592a97d"
+                "reference": "e1718c6bf57e1efbb8793ada951584b2ab27775b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/50eadbd7926e31842893c957eca362b21592a97d",
-                "reference": "50eadbd7926e31842893c957eca362b21592a97d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e1718c6bf57e1efbb8793ada951584b2ab27775b",
+                "reference": "e1718c6bf57e1efbb8793ada951584b2ab27775b",
                 "shasum": ""
             },
             "require": {
@@ -4235,7 +4235,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-03T13:51:32+00:00"
+            "time": "2017-01-21T17:06:35+00:00"
         },
         {
             "name": "webmozart/assert",
