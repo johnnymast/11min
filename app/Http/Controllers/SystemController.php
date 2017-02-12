@@ -135,6 +135,7 @@ class SystemController extends Controller
             $account->last_check = Carbon::createFromTimestamp(time());
             $account->save();
 
+            dd($emails);
             foreach ($emails as $email) {
                 $data[] = [
                     'from'    => $email['header']->from[0]->personal,
@@ -149,7 +150,6 @@ class SystemController extends Controller
             return $data;
 
         } catch (\Exception $e) {
-            dd($e);
             return [];
         }
     }
