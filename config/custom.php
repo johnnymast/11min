@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'mail_domain'             => 'locovsworld.com',
-    'admin_email'             => 'mastjohnny@gmail.com',
+    'mail_domain'             => env('MAIL_DOMAIN'),
+    'admin_email'             => env('ADMIN_EMAIL'),
     'google_analytics_code'   => env('GOOGLE_ANALYTICS_CODE'),
 
     /**
