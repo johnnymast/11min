@@ -22,6 +22,12 @@ Route::group([
     Route::get('/page/{pages_slug}', 'PagesController@show');
 
     /**
+     * Display user email
+     */
+    Route::get('/email/{mailId}', 'SystemController@displayMail')
+        ->middleware('is_valid_account');
+
+    /**
      * Display and handle the contact form
      */
     Route::get('/contact', 'ContactController@show')->name('contact');
@@ -62,11 +68,6 @@ Route::group([
      * Retire this account. Refresh and create a new account.
      */
     Route::get('/retire', 'SystemController@retireAccount')->name('retire');
-
-    /**
-     * Display user email
-     */
-    Route::get('/email/{mailId}', 'SystemController@displayMail');
 });
 
 /**
