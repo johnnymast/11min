@@ -29,7 +29,7 @@
                     </figure>
                     @yield('content_left')
                 </div>
-                <div class="column is-8 is-offset-1">
+                <div class="column is-7 is-offset-1">
                     @yield('content_right')
                 </div>
             </div>
