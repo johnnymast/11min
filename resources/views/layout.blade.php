@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <link rel="apple-touch-icon" sizes="57x57" href="/ios/apple-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/ios/apple-icon-72x72.png" />
-
-
     <title>{{ config('app.name') }}</title>
     @yield('header_extra_meta_tags')
 
     <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
-
     <link rel="stylesheet" href="/css/all.css">
     <script src="/js/axios.min.js"></script>
     @yield('header_extra_scripts')
