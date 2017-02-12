@@ -22,7 +22,7 @@ class isValidAcount
             return response('Unauthorized', 401);
         } else {
             $account = Account::where('unique_id',$request->session()->get('account' ))->first();
-            if (!$account) {
+            if ($account) {
                 if ($account->expired == true) {
                     return response('Unauthorized', 401);
                 }
