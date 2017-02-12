@@ -93,7 +93,7 @@
         </p>
 
 
-        {!! Form::label('seo_tags', 'SEO Tags', [
+        {!! Form::label('seo_tags', 'SEO Keywords', [
            'for' => 'seo_tags',
            'class' => 'label'
            ]) !!}

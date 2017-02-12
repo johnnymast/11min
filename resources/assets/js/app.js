@@ -31,6 +31,10 @@ Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('mailbox', require('./components/Mailbox.vue'));
 Vue.component('countdown', require('./components/Countdown.vue'));
 
+// Comment these three for local build.
+Vue.config.devtools = false
+Vue.config.debug = false
+Vue.config.silent = true
 
 var _app = new Vue({
     el: '#root'

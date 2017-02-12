@@ -1,5 +1,19 @@
 @extends('layout')
 
+@section('header_extra_meta_tags')
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="{{ $page['seo_description'] or config('custom.default_seo_description') }}">
+    <meta name="keywords" content="{{ $page['seo_tags'] or config('custom.default_seo_keywords') }}">
+
+    <meta property="og:url"                content="{{Request::fullUrl()}}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{$page['title'] or config('custom.default_og_title')}}" />
+    <meta property="og:description"        content="{{$page['seo_description'] or config('custom.default_og_description')}}" />
+@if (Gravatar::exists($page['author']['email']))
+    <meta property="og:image"              content="{{ Gravatar::src($page['author']['email'], 128) }}" />
+@endif
+@endsection
+
 @section('content_right')
     <div class="box content has-text-left">
         @if (Auth::check())

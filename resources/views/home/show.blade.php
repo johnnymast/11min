@@ -1,5 +1,17 @@
 @extends('layout')
 
+@section('header_extra_meta_tags')
+    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="{{ config('custom.default_seo_description') }}">
+    <meta name="keywords" content="{{ config('custom.default_seo_keywords') }}">
+
+    <meta property="og:url"                content="{{Request::fullUrl()}}" />
+    <meta property="og:type"               content="{{config('custom.default_og_type')}}" />
+    <meta property="og:title"              content="{{config('custom.default_og_title')}}" />
+    <meta property="og:description"        content="{{config('custom.default_og_description')}}" />
+    <meta property="og:image"              content="{{config('custom.default_og_image')}}" />
+@endsection
+
 @section('content_left')
     <div class="has-text-left">
         <label class="label">Your temporary email is</label>
