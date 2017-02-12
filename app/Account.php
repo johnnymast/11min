@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 class Account extends Model
 {
 
+    const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s';
+
     use Notifiable;
 
     /**
@@ -24,24 +26,61 @@ class Account extends Model
     ];
 
 
+    /**
+     * Return a list of accounts marked with the
+     * expired bit in database.
+     *
+     * @return mixed
+     */
     public function getExpiredAccounts()
     {
         return $this->where('expired', true)->get();
     }
 
 
+    /**
+     * Get an array of accounts that are not being used between 2 hours ago and 1 hour ago
+     * So as example when its 15:00 now we will return accounts that checked there accounts
+     * in this range.
+     *
+     * 15:00 - 2H = 13:00 and 15:00 - 1H = 14:00
+     *
+     * Return email acounts where expired is < 15:00 and last_check (last called /system/messages) is
+     * between 13:00 and 15:00.
+     *
+     * @return mixed
+     */
     public function getInactiveAccounts()
     {
         return $this->whereBetween('last_check', [
-                Carbon::now()->subHours(2),
-                Carbon::now()->subHours(1)
-            ])->where('expired', false)->where('expires_at', '<', Carbon::now())->get();
+            Carbon::now()->subHours(2),
+            Carbon::now()->subHours(1)
+        ])->where('expired', false)->where('expires_at', '<', Carbon::now())->get();
     }
 
 
     /**
-     * Create the mail account.
+     * Create a nicely formatted time notation. Probably in the future
+     * this will deprecate and i will use Carbon for this.
      *
+     * @param int $timestamp
+     *
+     * @return false|string
+     */
+    public static function formatTimestamp($timestamp = 0)
+    {
+        if ($timestamp == 0) {
+            $timestamp = time();
+        }
+
+        return date(self::EXPIRATION_TIME_FORMAT, $timestamp);
+    }
+
+
+    /**
+     * Create a new mail account and random unique_id.
+     *
+     * @see generateUniqueId
      * @return int|static
      */
     public static function generate()
@@ -63,18 +102,18 @@ class Account extends Model
 
 
     /**
+     * Create a unique_id for a new account to use.
+     *
      * @return int
      */
     public static function generateUniqueId()
     {
         $number = mt_rand(1000, 999999); // better than rand()
 
-        // call the same function if the barcode exists already
         if (self::whereUniqueId($number)->exists()) {
             return generateBarcodeNumber();
         }
 
-        // otherwise, it's valid and can be used
         return $number;
     }
 }

@@ -31,13 +31,13 @@
         data() {
             return {
                 emails: [],
-                check_interval: 1000 * 5, /* 10 sec */
+                check_interval: 1000 * 3, /* 3 sec */
                 expired: false,
             }
         },
         methods: {
             readEmail(email) {
-                window.location.href = '/read_email/'+email['msgid'];
+                window.location.href = '/email/'+email['msgid'];
             }
         },
         computed: {
@@ -52,7 +52,7 @@
 
             this.remaining_interval = window.setInterval(() => {
                 if (this.isExpired == false) {
-                    axios.get('/datasource').then(response => this.emails = response.data);
+                    axios.get('/system/messages').then(response => this.emails = response.data);
                 }
             }, this.check_interval);
 

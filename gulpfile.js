@@ -17,7 +17,7 @@ elixir(mix => {
     mix
         .sass('app.scss')
         .sass('font-awesome/font-awesome.scss', 'resources/assets/css/font-awesome.css')
-        .webpack('app.js', 'all.js')
+        .webpack('app.js')
         .scripts([
             'clipboard.min.js',
             'general.js',

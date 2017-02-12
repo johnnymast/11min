@@ -52,13 +52,13 @@
         },
         methods: {
             addTime() {
-                axios.get('/add_time').then(response => this.event = response.data.expires_at);
+                axios.get('/system/increase').then(response => this.event = response.data.expires_at);
             },
             resetTime() {
-                axios.get('/reset_time').then(response => this.event = response.data.expires_at);
+                axios.get('/system/reset').then(response => this.event = response.data.expires_at);
             },
             retireAccount() {
-                window.location.href = '/retire';
+                window.location.href = '/system/retire';
             }
         },
         computed: {
@@ -100,9 +100,10 @@
             }
         },
         mounted() {
+
             this.remaining_interval = window.setInterval(() => {
                 if (this.expired == false)
-                    axios.get('/remaining_time').then(response => this.event = response.data.expires_at);
+                    axios.get('/system/time').then(response => this.event = response.data.expires_at);
             }, 5000);
 
             this.countdown_interval = window.setInterval(() => {

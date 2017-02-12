@@ -16,42 +16,71 @@ Route::group([
     'middleware' => ['minify_html']
 ], function () {
 
+    /**
+     * Display pages
+     */
     Route::get('/page/{pages_slug}', 'PagesController@show');
 
+    /**
+     * Display and handle the contact form
+     */
+    Route::get('/contact', 'ContactController@show')->name('contact');
+    Route::post('/contact', 'ContactController@store')->name('contact_store');
 
     /**
-     * Pages
+     * Show the homepage and create the user account.
      */
+    Route::get('/', 'HomeController@show')->name('home');
+});
 
-    Route::get('/about', 'About@show')->name('about');
-    Route::get('/', 'Web@index')->name('home');
+Route::group([
+    'prefix'     => '/system',
+    'middleware' => ['minify_html', 'is_valid_account']
+], function () {
 
-    Route::get('/datasource', 'Mail@dataSource')->middleware('account.is_valid_account');
-    Route::get('/remaining_time', 'Mail@getRemainingTime')->middleware('account.is_valid_account');
-    Route::get('/add_time', 'Mail@addTime')->middleware('account.is_valid_account');
-    Route::get('/reset_time', 'Mail@resetTime');
-    Route::get('/read_email/{mailId}', 'Web@displayMail')->middleware('account.is_valid_account');
-    Route::get('/send_email', 'Mail@sendEmail')->middleware('account.is_valid_account');
-    Route::get('/retire', 'Web@retire')->name('retire')->middleware('account.is_valid_account');;
+    /**
+     * Increase the time for this account by 10 minutes
+     */
+    Route::get('/increase', 'SystemController@addTime');
 
+    /**
+     * Reset the time to the time now + 10 minutes
+     */
+    Route::get('/reset', 'SystemController@resetTime');
+
+    /**
+     * Get the messages arrived in the user's mailbox
+     */
+    Route::get('/messages', 'SystemController@messages');
+
+    /**
+     * Get the remaining time for this account.
+     */
+    Route::get('/time', 'SystemController@timeRemaining');
+
+    /**
+     * Retire this account. Refresh and create a new account.
+     */
+    Route::get('/retire', 'SystemController@retireAccount')->name('retire');
+
+    /**
+     * Display user email
+     */
+    Route::get('/email/{mailId}', 'SystemController@displayMail');
 });
 
 /**
- * Contact page
+ * CRUD pages
  */
-Route::get('/contact', 'ContactController@show')->name('contact');
-Route::post('/contact', 'ContactController@store')->name('contact_store');
-
-
-Route::group(['middleware' => ['isAuthEnabled', 'isValidAdmin', 'minify_html']], function()
-{
+Route::group(['middleware' => ['isAuthEnabled', 'isValidAdmin', 'minify_html']], function () {
     Route::resource('pages', 'PagesController', [
         'except' => ['show'],
     ]);
 });
 
 /**
- * Enable auth is granted
+ * Enable auth but only when granted
+ * from the .env file.
  */
 if (env('AUTH_ENABLED')) {
     Auth::routes();
