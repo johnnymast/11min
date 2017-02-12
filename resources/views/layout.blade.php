@@ -9,7 +9,7 @@
     <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
 
     <link rel="stylesheet" href="/css/all.css">
-    {{--<script src="/js/axios.min.js"></script>--}}
+    <script src="/js/axios.min.js"></script>
     @yield('header_extra_scripts')
 </head>
 <body>

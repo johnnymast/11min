@@ -19,7 +19,6 @@ elixir(mix => {
         .sass('font-awesome/font-awesome.scss', 'resources/assets/css/font-awesome.css')
         .webpack('app.js', 'all.js')
         .scripts([
-            //'axios.min.js',
             'clipboard.min.js',
             'general.js',
             'bulma.js'
