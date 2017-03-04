@@ -25,6 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('project:expire')
+            ->everyThirtyMinutes();
+
+        $schedule->command('project:clean')
+            ->hourly();
+
         // $schedule->command('inspire')
         //          ->hourly();
     }
