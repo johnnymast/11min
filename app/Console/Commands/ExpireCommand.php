@@ -34,6 +34,8 @@ class ExpireCommand extends Command
             $account->expired = true;
             $account->save();
         }
-        echo 'Expired '.count($accounts). 'accounts';
+        if (count($accounts) > 0) {
+            echo 'Expired '.count($accounts).'accounts';
+        }
     }
 }

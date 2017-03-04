@@ -43,6 +43,6 @@ class User extends Authenticatable
      */
     public function pages()
     {
-        return $this->hasMany('\App\Page', 'user_id');
+        return $this->hasMany('\App\Page', 'target_user');
     }
 }
