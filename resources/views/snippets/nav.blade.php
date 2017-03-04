@@ -28,7 +28,7 @@
                 Contact
             </a>
             @if (Auth::check())
-            <a class="nav-link" href="{{ route('logout') }}"
+            <a class="nav-item is-tab" href="{{ route('logout') }}"
                onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                 {{ 'Logout' }}
