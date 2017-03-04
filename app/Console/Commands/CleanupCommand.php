@@ -67,10 +67,10 @@ class CleanupCommand extends Command
             echo "Error: ".$e->getMessage();
         }
 
-        if ($cleaned > 0) {
+    //    if ($cleaned > 0) {
             if ($admin) {
                 Mail::to($admin)->send(new CleanupReport($cleaned));
             }
-        }
+      //  }
     }
 }
