@@ -53,6 +53,7 @@ class NewEmailCommand extends Command
 
         $accounts = Account::where('unique_id', '=', 209673)->get();
 
+        print_r($accounts);
         if (count($accounts) > 0) {
             foreach($accounts as $account) {
 
