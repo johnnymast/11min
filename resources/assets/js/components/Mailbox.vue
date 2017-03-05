@@ -61,7 +61,7 @@
              * Listen to the donations.channel where
              * we sent events about new donations for this user.
              */
-            Echo.private('emails.pipepline')
+            Echo.private('emails.pipeline')
                 .listen('NewEmailEvent', function (e) {
                     console.log('New mail!');
                     console.log(e);
