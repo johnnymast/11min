@@ -24,10 +24,5 @@ class BroadcastServiceProvider extends ServiceProvider
                 return true;
             }
         });
-
-
-        Broadcast::channel('App.User.{id}', function ($user, $id) {
-            return true;
-        });
     }
 }

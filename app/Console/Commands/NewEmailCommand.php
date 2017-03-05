@@ -2,14 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Account;
 use App\Events\NewEmailEvent;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use JM\MailReader\MailReader;
-use Carbon\Carbon;
-use App\Account;
 
 class NewEmailCommand extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
@@ -23,6 +24,7 @@ class NewEmailCommand extends Command
      * @var string
      */
     protected $description = 'Check for new emails for all accounts.';
+
 
     /**
      * Create a new command instance.
@@ -54,7 +56,7 @@ class NewEmailCommand extends Command
         $accounts = Account::where('unique_id', '=', 209673)->get();
 
         if (count($accounts) > 0) {
-            foreach($accounts as $account) {
+            foreach ($accounts as $account) {
 
                 if ( ! $account) {
                     throw new \Exception("No saved account found");
@@ -94,14 +96,10 @@ class NewEmailCommand extends Command
                     ];
                 }
 
-                print_r($data);
-
-               // if (count($data) > 0) {
+                if (count($data) > 0) {
                     event(new NewEmailEvent($data));
-
-                broadcast(new NewEmailEvent($data));
                     echo "Pushed ".count($data)." mails for ".$account->unique_id."\n";
-                //}
+                }
             }
         }
     }
