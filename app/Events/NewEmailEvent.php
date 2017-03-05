@@ -37,6 +37,6 @@ class NewEmailEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('emails.pipeline');
+        return new PresenceChannel('emails.pipeline');
     }
 }
