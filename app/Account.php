@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -11,7 +12,7 @@ class Account extends Model
 
     const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s';
 
-    use Notifiable;
+    use Notifiable, Authenticatable;
 
     /**
      * The attributes that are mass assignable.
