@@ -92,9 +92,9 @@ class NewEmailCommand extends Command
                     ];
                 }
 
-                if (count($emails) > 0) {
-                    event(new NewEmailEvent($emails));
-                    echo "Pushed ".count($emails)." mails for "."\n";
+                if (count($data) > 0) {
+                    event(new NewEmailEvent($data));
+                    echo "Pushed ".count($data)." mails for "."\n";
                 }
             }
         }
