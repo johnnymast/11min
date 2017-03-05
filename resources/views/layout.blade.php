@@ -6,19 +6,13 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <link rel="apple-touch-icon" sizes="57x57" href="/ios/apple-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/ios/apple-icon-72x72.png" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }}</title>
     @yield('header_extra_meta_tags')
 
     <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
     <link rel="stylesheet" href="/css/all.css">
     <script src="/js/axios.min.js"></script>
-
-    <!-- Scripts -->
-    <script>
-        window.Laravel =  <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
 
     @yield('header_extra_scripts')
 </head>
