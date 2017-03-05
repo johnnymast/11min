@@ -55,7 +55,8 @@ class NewEmailCommand extends Command
 
         if (count($accounts) > 0) {
             foreach ($accounts as $account) {
-                $reader->setMailbox('INBOX');
+
+                die($reader->getMailbox());
 
                 if ( ! $account) {
                     throw new \Exception("No saved account found");
