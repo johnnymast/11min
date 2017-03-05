@@ -18,15 +18,10 @@ class isValidAcount
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->session()->get('account', null)) {
-            return response('Unauthorized', 401);
+        if (Auth::user()) {
+            $request->request->add(['user' => Auth::user()]);
         } else {
-            $account = Account::where('unique_id',$request->session()->get('account' ))->first();
-            if ($account) {
-                if ($account->expired == true) {
-                    return response('Unauthorized', 401);
-                }
-            }
+            return response('Unauthorized', 401);
         }
         return $next($request);
     }
