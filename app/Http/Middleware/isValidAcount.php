@@ -21,7 +21,7 @@ class isValidAcount
     {
         if (Auth::check()) {
             $request->setUserResolver(function() {
-                echo 'Check';
+                die('Check');
             });
             $request->request->add(['user' => Auth::user()]);
         } else {
