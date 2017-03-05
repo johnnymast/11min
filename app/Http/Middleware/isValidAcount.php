@@ -22,7 +22,7 @@ class isValidAcount
         if (Auth::user()) {
             $request->request->add(['user' => Auth::user()]);
         } else {
-            return response('Unauthorized', 401);
+           // return response('Unauthorized', 401);
         }
         return $next($request);
     }
