@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\CleanupCommand',
         'App\Console\Commands\ExpireCommand',
-        'App\Console\Commands\CheckNewMailCommand'
+        'App\Console\Commands\NewEmailCommand'
     ];
 
     /**

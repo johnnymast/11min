@@ -8,7 +8,7 @@ use JM\MailReader\MailReader;
 use Carbon\Carbon;
 use App\Account;
 
-class CheckNewMailCommand extends Command
+class NewEmailCommand extends Command
 {
     /**
      * The name and signature of the console command.
