@@ -67,10 +67,6 @@ class NewEmailCommand extends Command
 
                 echo "Checking ".$mailbox." (".$targetEmailAddress.")\n";
 
-                if ($mailbox == '776985') {
-                    print_r($messages);
-                    exit;
-                }
 
                 if ($reader->mailboxExists($mailbox) === false) {
                     $reader->createMailbox($mailbox);
@@ -79,6 +75,10 @@ class NewEmailCommand extends Command
 
 
                 $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
+                if ($mailbox == '776985') {
+                    print_r($messages);
+                    exit;
+                }
 
                 if (is_array($messages) && count($messages) > 0) {
                     foreach ($messages as $message) {
