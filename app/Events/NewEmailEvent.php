@@ -18,7 +18,7 @@ class NewEmailEvent implements ShouldBroadcast
     /**
      * @var array
      */
-    protected $emails = [];
+    public $emails = [];
 
     /**
      * @var Account
