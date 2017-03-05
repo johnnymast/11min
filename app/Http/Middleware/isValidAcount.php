@@ -20,6 +20,9 @@ class isValidAcount
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
+            $request->setUserResolver(function() {
+                echo 'Check';
+            })
             $request->request->add(['user' => Auth::user()]);
         } else {
            // return response('Unauthorized', 401);
