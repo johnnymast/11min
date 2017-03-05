@@ -86,7 +86,6 @@ class Account extends Model
         return date(self::EXPIRATION_TIME_FORMAT, $timestamp);
     }
 
-
     /**
      * Create a new mail account and random unique_id.
      *
