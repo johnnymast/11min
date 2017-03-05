@@ -60,6 +60,15 @@ class Account extends Model
 
 
     /**
+     * Return a list of active mail accounts on the system.
+     */
+    public static function getActiveAccounts()
+    {
+        return self::whereExpired(false)->get();
+    }
+
+
+    /**
      * Create a nicely formatted time notation. Probably in the future
      * this will deprecate and i will use Carbon for this.
      *
