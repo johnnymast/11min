@@ -94,10 +94,10 @@ class NewEmailCommand extends Command
                     ];
                 }
 
-                if (count($data) > 0) {
+         //       if (count($data) > 0) {
                     event(new NewEmailEvent($data));
                     echo "Pushed ".count($data)." mails for ".$account->unique_id."\n";
-                }
+           //     }
             }
         }
     }
