@@ -55,6 +55,7 @@ class NewEmailCommand extends Command
 
         if (count($accounts) > 0) {
             foreach ($accounts as $account) {
+                $reader->setMailbox('INBOX');
 
                 if ( ! $account) {
                     throw new \Exception("No saved account found");
@@ -68,7 +69,7 @@ class NewEmailCommand extends Command
                     $reader->subscribeMailbox($mailbox);
                 }
 
-                $reader->setMailbox($mailbox);
+
                 $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
 
                 if (is_array($messages) && count($messages) > 0) {
@@ -76,7 +77,7 @@ class NewEmailCommand extends Command
                         $reader->moveMessage($message['index'], $mailbox);
                     }
                 }
-
+                $reader->setMailbox($mailbox);
 
                 $emails = $reader->readMailbox();
                 $data = [];
