@@ -73,10 +73,8 @@ class NewEmailCommand extends Command
                     $reader->subscribeMailbox($mailbox);
                 }
 
-
-
                 $messages = $reader->filterTo($targetEmailAddress);
-
+                print_r($messages);
                 if (is_array($messages) && count($messages) > 0) {
                     foreach ($messages as $message) {
                         $reader->moveMessage($message['index'], $mailbox);
