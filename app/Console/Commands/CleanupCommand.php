@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Mail\CleanupReport;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use JM\MailReader\MailReader;
 
 class CleanupCommand extends Command
 {
@@ -38,7 +39,13 @@ class CleanupCommand extends Command
             if ($accounts) {
                 foreach ($accounts as $account) {
                     $mailbox = $account->unique_id;
-                    $reader = \App::make('MailReader');
+                    $reader = new MailReader();
+                    $reader->connect([
+                        'server'   => env('MAILREADER_HOST'),
+                        'username' => env('MAILREADER_USERNAME'),
+                        'password' => env('MAILREADER_PASSWORD'),
+                        'post'     => env('MAILREADER_PORT'),
+                    ]);
 
                     $reader->setMailbox($mailbox);
                     $messages = $reader->readMailbox();
