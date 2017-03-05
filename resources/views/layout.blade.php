@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="57x57" href="/ios/apple-icon-57x57.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/ios/apple-icon-72x72.png" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="pusher-key" content="{{ env('PUSHER_APP_KEY')}}">
+    <meta name="pusher-key" content="{{ env('PUSHER_KEY')}}">
 
     <title>{{ config('app.name') }}</title>
     @yield('header_extra_meta_tags')
