@@ -53,7 +53,6 @@ class NewEmailCommand extends Command
 
         $accounts = Account::where('unique_id', '=', 209673)->get();
 
-        print_r($accounts);
         if (count($accounts) > 0) {
             foreach($accounts as $account) {
 
@@ -94,6 +93,8 @@ class NewEmailCommand extends Command
                         'msgid'   => $email['index']
                     ];
                 }
+
+                print_r($data);
 
                // if (count($data) > 0) {
                     event(new NewEmailEvent($data));
