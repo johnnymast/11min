@@ -38,7 +38,60 @@ class CheckNewMailCommand extends Command
      */
     public function handle()
     {
-       $accounts = Account::getActiveAccounts();
+        $accounts = Account::getActiveAccounts();
+        $reader = new MailReader();
+        $reader->connect([
+            'server'   => env('MAILREADER_HOST'),
+            'username' => env('MAILREADER_USERNAME'),
+            'password' => env('MAILREADER_PASSWORD'),
+            'post'     => env('MAILREADER_PORT'),
+        ]);
+
+        if (count($accounts) > 0) {
+            foreach($accounts as $account) {
+
+                if ( ! $account) {
+                    throw new \Exception("No saved account found");
+                }
+
+                $mailbox = $account->unique_id;
+                $targetEmailAddress = $mailbox.'@'.config('custom.mail_domain');
+
+                if ($reader->mailboxExists($mailbox) === false) {
+                    $reader->createMailbox($mailbox);
+                    $reader->subscribeMailbox($mailbox);
+                }
+
+                $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
+
+                if (is_array($messages) && count($messages) > 0) {
+                    foreach ($messages as $message) {
+                        $reader->moveMessage($message['index'], $mailbox);
+                    }
+                }
+
+                $reader->setMailbox($mailbox);
+                $emails = $reader->readMailbox();
+                $data = [];
+
+                $account->last_check = Carbon::createFromTimestamp(time());
+                $account->save();
+
+                foreach ($emails as $email) {
+                    $data[] = [
+                        'from'    => $email['header']->fromaddress,
+                        'to'      => $email['header']->to,
+                        'subject' => $email['header']->subject,
+                        'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
+                        'unread'  => $email['header']->Unseen == 'U',
+                        'msgid'   => $email['index']
+                    ];
+                }
+
+                //event(new ShippingStatusUpdated($update));
+            }
+        }
+
        print_r($accounts);
     }
 }
