@@ -103,7 +103,7 @@
 
             this.remaining_interval = window.setInterval(() => {
                 if (this.expired == false)
-                    axios.get('/system/time').then(response => this.event = response.data.expires_at);
+             //       axios.get('/system/time').then(response => this.event = response.data.expires_at);
             }, 5000);
 
             this.countdown_interval = window.setInterval(() => {
