@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Notifications\WelcomeMail;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,7 @@ class HomeController extends Controller
                     ]);
 
                     $account->notify(new WelcomeMail($account));
+                    Auth::login($account);
                 }
             } else {
 

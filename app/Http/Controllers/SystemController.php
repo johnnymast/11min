@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SystemController extends Controller
 {
@@ -16,7 +17,7 @@ class SystemController extends Controller
      */
     public function retireAccount()
     {
-        if (($account = Account::where('unique_id', session('account'))->first())) {
+        if (($account = Auth::user())) {
 
             $account->expired = true;
             $account->save();
@@ -24,6 +25,8 @@ class SystemController extends Controller
 
         session()->forget('account');
         session()->forget('email');
+
+        Auth::logout();
 
         return \Redirect::route('home');
     }
@@ -40,7 +43,7 @@ class SystemController extends Controller
         $data = [
             'expires_at' => session('expires_at', Account::formatTimestamp())
         ];
-        if (($account = Account::where('unique_id', session('account', null))->first())) {
+        if (($account = Auth::user())) {
             $data['expires_at'] = Account::formatTimestamp(strtotime($account->expires_at));
         }
 
@@ -61,7 +64,7 @@ class SystemController extends Controller
             'expires_at' => session('expires_at', Account::formatTimestamp())
         ];
 
-        if (($account = Account::where('unique_id', session('account', null))->first())) {
+        if (($account = Auth::user())) {
             $newTime = strtotime("+10 MIN", strtotime($account->expires_at));
             $account->expires_at = Carbon::createFromTimestamp($newTime);
             $account->save();
@@ -83,7 +86,7 @@ class SystemController extends Controller
      */
     public function resetTime()
     {
-        if (($account = Account::where('unique_id', session('account', null))->first())) {
+        if (($account = Auth::user())) {
             $account->expires_at = Carbon::now()->addMinutes(10);
             $account->save();
             $data['expires_at'] = Account::formatTimestamp(strtotime($account->expires_at));
@@ -97,6 +100,7 @@ class SystemController extends Controller
      * Return a json array of (un)read messages in the user's
      * mailbox.
      *
+     * @deprecated
      * @return array
      */
     public function messages()
@@ -164,7 +168,7 @@ class SystemController extends Controller
     public function displayMail($mailId = 0)
     {
         if ($mailId > 0) {
-            if (($account = Account::where('unique_id', session('account'))->first())) {
+            if (($account = Auth::user())) {
                 try {
                     $reader = \App::make('MailReader');
 
