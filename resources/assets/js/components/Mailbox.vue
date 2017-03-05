@@ -57,6 +57,16 @@
              	response => this.emails = response.data
              );
 
+            /**
+             * Listen to the donations.channel where
+             * we sent events about new donations for this user.
+             */
+            Echo.private(`emails.pipepline`)
+                .listen('NewEmailEvent', function (e) {
+                    console.log('New mail!')
+                    console.log(e);
+                });
+
             this.remaining_interval = window.setInterval(() => {
                 if (this.isExpired == false) {
                     axios.get('/system/messages').then(response => this.emails = response.data);

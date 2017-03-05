@@ -43,6 +43,6 @@ class NewEmailEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('emails.pipepline.'.$this->account->unique_id);
+        return new PrivateChannel('emails.pipepline');
     }
 }
