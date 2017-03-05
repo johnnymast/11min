@@ -46,6 +46,8 @@
             }
         },
         mounted() {
+            var self = this;
+
             Event.listen('expired', (expired) => {
                 this.expired = expired;
             });
@@ -63,8 +65,9 @@
              */
             Echo.private('emails.pipeline')
                 .listen('NewEmailEvent', function (e) {
+                    this.emails = e.emails;
                     console.log('New mail!');
-                    console.log(e);
+                    console.log(e.emails);
                 });
 
             /*
