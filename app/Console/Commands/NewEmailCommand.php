@@ -75,7 +75,7 @@ class NewEmailCommand extends Command
 
 
 
-                $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
+                $messages = $reader->filterTo($targetEmailAddress);
 
                 if (is_array($messages) && count($messages) > 0) {
                     foreach ($messages as $message) {
