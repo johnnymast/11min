@@ -92,7 +92,7 @@ class CheckNewMailCommand extends Command
                     ];
                 }
 
-                broadcast(new NewEmailEvent($account, $emails));
+                broadcast(new NewEmailEvent($emails));
                 echo "Pushed ".count($emails)." mails for "."\n";
             }
         }

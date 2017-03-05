@@ -21,18 +21,12 @@ class NewEmailEvent implements ShouldBroadcast
     public $emails = [];
 
     /**
-     * @var Account
-     */
-    protected $account = null;
-
-    /**
      * Create a new event instance.
      *
      * @param $emails
      */
-    public function __construct(Account $account, $emails = [])
+    public function __construct($emails = [])
     {
-        $this->account = $account;
         $this->emails = $emails;
     }
 
