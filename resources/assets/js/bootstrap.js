@@ -38,7 +38,7 @@ Vue.http.interceptors.push((request, next) => {
  */
 
 import Echo from "laravel-echo"
-
+console.log(Laravel.pusherKey)
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: Laravel.pusherKey,
