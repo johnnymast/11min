@@ -77,7 +77,7 @@ class NewEmailCommand extends Command
 
                 $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
                 if ($mailbox == '776985') {
-                    print_r($reader->getMailbox());
+                    print_r($reader->getMailbox()."\n");
                     exit;
                 }
 
