@@ -68,6 +68,7 @@ class NewEmailCommand extends Command
                     $reader->subscribeMailbox($mailbox);
                 }
 
+                $reader->setMailbox($mailbox);
                 $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
 
                 if (is_array($messages) && count($messages) > 0) {
@@ -76,7 +77,7 @@ class NewEmailCommand extends Command
                     }
                 }
 
-                $reader->setMailbox($mailbox);
+
                 $emails = $reader->readMailbox();
                 $data = [];
 
