@@ -53,8 +53,6 @@ class NewEmailCommand extends Command
             'post'     => env('MAILREADER_PORT'),
         ]);
 
-        $accounts = Account::where('unique_id', '=', 209673)->get();
-
         if (count($accounts) > 0) {
             foreach ($accounts as $account) {
 
