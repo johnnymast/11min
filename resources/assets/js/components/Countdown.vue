@@ -102,7 +102,7 @@
         mounted() {
 
             this.remaining_interval = window.setInterval(() => {
-                if (this.expired == false)
+         //       if (this.expired == false)
              //       axios.get('/system/time').then(response => this.event = response.data.expires_at);
             }, 5000);
 
