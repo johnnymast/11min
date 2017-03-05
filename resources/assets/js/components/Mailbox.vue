@@ -66,8 +66,6 @@
             Echo.private('emails.pipeline')
                 .listen('NewEmailEvent', function (e) {
                     self.emails = e.emails;
-                    console.log('New mail!');
-                    console.log(e.emails);
                 });
 
             /*
