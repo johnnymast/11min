@@ -31,7 +31,7 @@ class HomeController extends Controller
                 }
             } else {
 
-                $account = Account::where('unique_id', session('account'))->first();
+                $account = Auth::user();
                 if ( ! $account) {
                     return \Redirect::route('retire');
                 }

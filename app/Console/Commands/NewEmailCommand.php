@@ -64,6 +64,9 @@ class NewEmailCommand extends Command
                 $mailbox = $account->unique_id;
                 $targetEmailAddress = $mailbox.'@'.config('custom.mail_domain');
 
+
+                echo "Checking ".$mailbox." (".$targetEmailAddress.")\n";
+
                 if ($reader->mailboxExists($mailbox) === false) {
                     $reader->createMailbox($mailbox);
                     $reader->subscribeMailbox($mailbox);
