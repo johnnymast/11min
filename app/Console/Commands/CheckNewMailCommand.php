@@ -92,8 +92,10 @@ class CheckNewMailCommand extends Command
                     ];
                 }
 
-                broadcast(new NewEmailEvent($emails));
-                echo "Pushed ".count($emails)." mails for "."\n";
+                if (count($emails) > 0) {
+                    broadcast(new NewEmailEvent($emails));
+                    echo "Pushed ".count($emails)." mails for "."\n";
+                }
             }
         }
     }
