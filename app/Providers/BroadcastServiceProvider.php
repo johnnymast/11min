@@ -19,7 +19,7 @@ class BroadcastServiceProvider extends ServiceProvider
         /*
          * Authenticate the user's personal channel...
          */
-        Broadcast::channel('emails.pipeline',  function ($user) {
+        Broadcast::channel('emails.pipeline',  function () {
             if (true) { // Replace with real ACL
                 return true;
             }
