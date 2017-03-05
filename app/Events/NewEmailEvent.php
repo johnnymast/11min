@@ -37,6 +37,7 @@ class NewEmailEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        return ['emails.pipepline'];
         return new PrivateChannel('emails.pipepline');
     }
 }
