@@ -12,6 +12,14 @@
     <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->
     <link rel="stylesheet" href="/css/all.css">
     <script src="/js/axios.min.js"></script>
+
+    <!-- Scripts -->
+    <script>
+        window.Laravel =  <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+
     @yield('header_extra_scripts')
 </head>
 <body>
