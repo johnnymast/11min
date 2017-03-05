@@ -67,12 +67,13 @@
                     console.log(e);
                 });
 
+            /*
             this.remaining_interval = window.setInterval(() => {
                 if (this.isExpired == false) {
                     axios.get('/system/messages').then(response => this.emails = response.data);
                 }
             }, this.check_interval);
-
+            */
             Event.fire('mailbox_ready');
         }
     }
