@@ -67,6 +67,11 @@ class NewEmailCommand extends Command
 
                 echo "Checking ".$mailbox." (".$targetEmailAddress.")\n";
 
+                if ($mailbox == '776985') {
+                    print_r($messages);
+                    exit;
+                }
+
                 if ($reader->mailboxExists($mailbox) === false) {
                     $reader->createMailbox($mailbox);
                     $reader->subscribeMailbox($mailbox);

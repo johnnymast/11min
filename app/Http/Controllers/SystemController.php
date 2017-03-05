@@ -126,10 +126,6 @@ class SystemController extends Controller
 
             $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
 
-            if ($mailbox == '776985') {
-                print_r($messages);
-                exit;
-            }
             if (is_array($messages) && count($messages) > 0) {
                 foreach ($messages as $message) {
                     $reader->moveMessage($message['index'], $mailbox);
