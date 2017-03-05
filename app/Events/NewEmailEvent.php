@@ -2,14 +2,16 @@
 
 namespace App\Events;
 
+use App\Account;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Support\Facades\App;
 
-class NewEmailEvent
+class NewEmailEvent implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
@@ -18,14 +20,19 @@ class NewEmailEvent
      */
     protected $emails = [];
 
+    /**
+     * @var Account
+     */
+    protected $account = null;
 
     /**
      * Create a new event instance.
      *
      * @param $emails
      */
-    public function __construct($emails)
+    public function __construct(Account $account, $emails = [])
     {
+        $this->account = $account;
         $this->emails = $emails;
     }
 
@@ -36,6 +43,6 @@ class NewEmailEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('emails.pipepline');
+        return new PrivateChannel('emails.pipepline.'.$this->account->unique_id);
     }
 }

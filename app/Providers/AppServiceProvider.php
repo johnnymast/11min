@@ -28,15 +28,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       App::bind('MailReader', function() {
-           $reader = new MailReader();
-           $reader->connect([
-               'server'   => env('MAILREADER_HOST'),
-               'username' => env('MAILREADER_USERNAME'),
-               'password' => env('MAILREADER_PASSWORD'),
-               'post'     => env('MAILREADER_PORT'),
-           ]);
-           return $reader;
-       });
+       //App::bind('MailReader', function() {
+       //    $reader = new MailReader();
+       //    $reader->connect([
+       //        'server'   => env('MAILREADER_HOST'),
+       //        'username' => env('MAILREADER_USERNAME'),
+       //        'password' => env('MAILREADER_PASSWORD'),
+       //        'post'     => env('MAILREADER_PORT'),
+       //    ]);
+       //    return $reader;
+       //});
     }
 }

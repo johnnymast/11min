@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Events\NewEmailEvent;
 use Illuminate\Console\Command;
+use JM\MailReader\MailReader;
+use Carbon\Carbon;
 use App\Account;
 
 class CheckNewMailCommand extends Command
@@ -31,10 +34,11 @@ class CheckNewMailCommand extends Command
         parent::__construct();
     }
 
+
     /**
      * Execute the console command.
-     *
      * @return mixed
+     * @throws \Exception
      */
     public function handle()
     {
@@ -88,10 +92,9 @@ class CheckNewMailCommand extends Command
                     ];
                 }
 
-                //event(new ShippingStatusUpdated($update));
+                event(new NewEmailEvent($account, $emails));
+                echo "Pushed ".count($emails)." mails for "."\n";
             }
         }
-
-       print_r($accounts);
     }
 }
