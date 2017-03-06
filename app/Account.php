@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,9 +23,18 @@ class Account extends Authenticatable
         'unique_id',
         'email',
         'expired',
-        'expires_at'
+        'expires_at',
+        'remember_token'
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'remember_token',
+    ];
 
     /**
      * Return a list of accounts marked with the

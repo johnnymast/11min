@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Account;
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 class isValidAcount
 {
@@ -19,13 +18,15 @@ class isValidAcount
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            $request->setUserResolver(function() {
-                die('Check');
-            });
-            $request->request->add(['user' => Auth::user()]);
+        if (! $request->session()->get('account', null)) {
+            return response('Unauthorized', 401);
         } else {
-           // return response('Unauthorized', 401);
+            $account = Account::where('unique_id',$request->session()->get('account' ))->first();
+            if ($account) {
+                if ($account->expired == true) {
+                    return response('Unauthorized', 401);
+                }
+            }
         }
         return $next($request);
     }
