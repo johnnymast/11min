@@ -27,7 +27,7 @@ class HomeController extends Controller
                     ]);
 
                     $account->notify(new WelcomeMail($account));
-                    Auth::login($account, true);
+                    Auth::login($account);
 
                //     dd(Auth::user());
                 }
