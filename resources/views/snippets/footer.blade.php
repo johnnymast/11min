@@ -18,7 +18,7 @@
                 <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
             </p>
             <p>
-                <a class="icon" href="//johnnymast.io">
+                <a class="icon" href="//github.com/johnnymast/10min">
                     <i class="fa fa-github"></i>
                 </a>
             </p>
