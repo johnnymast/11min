@@ -178,7 +178,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
 
         App\Providers\PagesServiceProvider::class, // NODIG ??
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,

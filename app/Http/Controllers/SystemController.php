@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SystemController extends Controller
@@ -13,15 +14,17 @@ class SystemController extends Controller
      * Retire this account and redirect to
      * the 'home' route.
      *
+     * @param Request $request
      * @return mixed
      */
-    public function retireAccount()
+    public function retireAccount(Request $request)
     {
-        if (($account = Auth::user())) {
-            $account->expired = true;
-            $account->save();
-        }
+        $request->user()->expired = true;
+        $request->user()->save();
 
+        /**
+         * These could be deprecated
+         */
         session()->forget('account');
         session()->forget('email');
 
@@ -35,16 +38,16 @@ class SystemController extends Controller
      * Return a json array with information
      * of when this account will expire.
      *
+     * @param Request $request
      * @return array
      */
-    public function timeRemaining()
+    public function timeRemaining(Request $request)
     {
         $data = [
             'expires_at' => session('expires_at', Account::formatTimestamp())
         ];
-        if (($account = Auth::user())) {
-            $data['expires_at'] = Account::formatTimestamp(strtotime($account->expires_at));
-        }
+
+        $data['expires_at'] = Account::formatTimestamp(strtotime($request->user()->expires_at));
 
         return $data;
     }
@@ -55,21 +58,20 @@ class SystemController extends Controller
      * 10 more minutes with his/hers mailbox. This function will return a json
      * array with information of when this account will expire.
      *
+     * @param Request $request
      * @return array
      */
-    public function addTime()
+    public function addTime(Request $request)
     {
         $data = [
             'expires_at' => session('expires_at', Account::formatTimestamp())
         ];
 
-        if (($account = Auth::user())) {
-            $newTime = strtotime("+10 MIN", strtotime($account->expires_at));
-            $account->expires_at = Carbon::createFromTimestamp($newTime);
-            $account->save();
+        $newTime = strtotime("+10 MIN", strtotime($request->user()->expires_at));
+        $request->user()->expires_at = Carbon::createFromTimestamp($newTime);
+        $request->user()->save();
 
-            $data['expires_at'] = Account::formatTimestamp(strtotime($account->expires_at));
-        }
+        $data['expires_at'] = Account::formatTimestamp(strtotime($request->user()->expires_at));
 
         return $data;
     }
@@ -81,124 +83,62 @@ class SystemController extends Controller
      * its account and create a new one. This function will return a json array
      * of when the account will expire (after the reset).
      *
+     * @param Request $request
      * @return mixed
      */
-    public function resetTime()
+    public function resetTime(Request $request)
     {
-        if (($account = Auth::user())) {
-            $account->expires_at = Carbon::now()->addMinutes(10);
-            $account->save();
-            $data['expires_at'] = Account::formatTimestamp(strtotime($account->expires_at));
+        $request->user()->expires_at = Carbon::now()->addMinutes(10);
+        $request->user()->save();
+        $data['expires_at'] = Account::formatTimestamp(strtotime($request->user()->expires_at));
 
-            return $data;
-        }
-    }
-
-
-    /**
-     * Return a json array of (un)read messages in the user's
-     * mailbox.
-     *
-     * @deprecated
-     * @return array
-     */
-    public function messages()
-    {
-
-        try {
-            $reader = \App::make('MailReader');
-
-            $accountIdentifier = session('account', null);
-            $account = Account::where('unique_id', $accountIdentifier)->first();
-
-            if ( ! $account) {
-                throw new \Exception("No saved account found");
-            }
-
-            $mailbox = $account->unique_id;
-            $targetEmailAddress = $mailbox.'@'.config('custom.mail_domain');
-
-            if ($reader->mailboxExists($mailbox) === false) {
-                $reader->createMailbox($mailbox);
-                $reader->subscribeMailbox($mailbox);
-            }
-
-            $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
-
-            if (is_array($messages) && count($messages) > 0) {
-                foreach ($messages as $message) {
-                    $reader->moveMessage($message['index'], $mailbox);
-                }
-            }
-
-            $reader->setMailbox($mailbox);
-            $emails = $reader->readMailbox();
-            $data = [];
-
-            $account->last_check = Carbon::createFromTimestamp(time());
-            $account->save();
-
-            foreach ($emails as $email) {
-                $data[] = [
-                    'from'    => $email['header']->fromaddress,
-                    'to'      => $email['header']->to,
-                    'subject' => $email['header']->subject,
-                    'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
-                    'unread'  => $email['header']->Unseen == 'U',
-                    'msgid'   => $email['index']
-                ];
-            }
-
-            return $data;
-
-        } catch (\Exception $e) {
-            return [];
-        }
+        return $data;
     }
 
 
     /**
      * This function will display an email message to the user.
      *
-     * @param int $mailId
+     * @param Request $request
+     * @param int     $mailId
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function displayMail($mailId = 0)
+    public function displayMail(Request $request, $mailId = 0)
     {
         if ($mailId > 0) {
-            if (($account = Auth::user())) {
-                try {
-                    $reader = \App::make('MailReader');
 
-                    $reader->setMailbox($account->unique_id);
-                    $reader->readMailbox();
+            try {
+                $reader = \App::make('MailReader');
 
-                    $email = $reader->getMessage($mailId);
+                $reader->setMailbox($request->user()->unique_id);
+                $reader->readMailbox();
 
-                    if ( ! $email) {
-                        throw new \Exception("Email not found", 200);
-                    }
+                $email = $reader->getMessage($mailId);
 
-                    /**
-                     * Todo filter script tags
-                     */
-                    $data = [
-                        'from'    => $email['header']->fromaddress,
-                        'to'      => $email['header']->toaddress,
-                        'subject' => $email['header']->subject,
-                        'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
-                        'body'    => $email['body']
-                    ];
-
-                    return view('email.show', [
-                        'email' => $data,
-                    ]);
-
-                } catch (\Exception $e) {
-                    abort(500);
+                if ( ! $email) {
+                    throw new \Exception("Email not found", 200);
                 }
+
+                /**
+                 * Todo filter script tags
+                 */
+                $data = [
+                    'from'    => $email['header']->fromaddress,
+                    'to'      => $email['header']->toaddress,
+                    'subject' => $email['header']->subject,
+                    'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
+                    'body'    => $email['body']
+                ];
+
+                return view('email.show', [
+                    'email' => $data,
+                ]);
+
+            } catch (\Exception $e) {
+                abort(500);
             }
+
         } else {
             abort(404);
         }
