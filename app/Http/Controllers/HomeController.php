@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function show()
     {
         try {
-            if (Auth::guest()) {
+            if (Auth::guard('mailboxes')->guest()) {
 
                 if (($account = Account::generate())) {
 
