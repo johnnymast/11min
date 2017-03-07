@@ -25,18 +25,6 @@ class NewEmailCommand extends Command
      */
     protected $description = 'Check for new emails for all accounts.';
 
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-
     /**
      * Execute the console command.
      * @return mixed
@@ -65,16 +53,12 @@ class NewEmailCommand extends Command
                 $mailbox = $account->unique_id;
                 $targetEmailAddress = $mailbox.'@'.config('custom.mail_domain');
 
-
                 echo "Checking ".$mailbox." (".$targetEmailAddress.")\n";
-
 
                 if ($reader->mailboxExists($mailbox) === false) {
                     $reader->createMailbox($mailbox);
                     $reader->subscribeMailbox($mailbox);
                 }
-
-
 
                 $messages = $reader->filterUnReadMessagesTo($targetEmailAddress);
 
@@ -103,7 +87,7 @@ class NewEmailCommand extends Command
                 }
 
                 if (count($data) > 0) {
-                    event(new NewEmailEvent($data));
+                //    event(new NewEmailEvent($data));
                     echo "Pushed ".count($data)." mails for ".$account->unique_id."\n";
                 }
             }
