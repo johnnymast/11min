@@ -41,7 +41,7 @@ Route::group([
 
 Route::group([
     'prefix'     => '/system',
-    'middleware' => ['minify_html', 'is_valid_account']
+    'middleware' => ['minify_html', 'is_valid_account', 'auth:mailboxes']
 ], function () {
 
     /**

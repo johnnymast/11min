@@ -40,7 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'mailboxes' => [
+            'driver' => 'session',
+            'provider' => 'accounts',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -69,12 +72,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
-         'accounts' => [
-             'driver' => 'database',
-             'model' => App\Account::class,
-            // 'table' => 'accounts',
-         ],
+        'accounts' => [
+            'driver' => 'eloquent',
+            'model' => App\Account::class,
+            'table' => 'accounts',
+        ],
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*

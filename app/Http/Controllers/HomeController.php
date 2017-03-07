@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Notifications\WelcomeMail;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+
+    use AuthenticatesUsers;
+
 
     /**
      * Welcome's the user and create its account.
@@ -17,8 +21,8 @@ class HomeController extends Controller
     public function show()
     {
         try {
+            if (Auth::guest()) {
 
-            if (session()->has('account') == false) {
                 if (($account = Account::generate())) {
 
                     session([
@@ -27,13 +31,13 @@ class HomeController extends Controller
                     ]);
 
                     $account->notify(new WelcomeMail($account));
-                    Auth::login($account);
 
-               //     dd(Auth::user());
+                    Auth::guard('mailboxes')->login($account);
                 }
             } else {
 
-                $account = Auth::user();
+                $account = Auth::guard('mailboxes')->user();
+
                 if ( ! $account) {
                     return \Redirect::route('retire');
                 }

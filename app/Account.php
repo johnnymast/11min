@@ -3,7 +3,6 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -23,8 +22,7 @@ class Account extends Authenticatable
         'unique_id',
         'email',
         'expired',
-        'expires_at',
-        'remember_token'
+        'expires_at'
     ];
 
     /**
@@ -35,6 +33,7 @@ class Account extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
+
 
     /**
      * Return a list of accounts marked with the
@@ -94,6 +93,7 @@ class Account extends Authenticatable
 
         return date(self::EXPIRATION_TIME_FORMAT, $timestamp);
     }
+
 
     /**
      * Create a new mail account and random unique_id.

@@ -18,7 +18,6 @@ class SystemController extends Controller
     public function retireAccount()
     {
         if (($account = Auth::user())) {
-
             $account->expired = true;
             $account->save();
         }
