@@ -69,7 +69,7 @@ class NewEmailCommand extends Command
                 }
                 $reader->setMailbox($mailbox);
 
-                $emails = $reader->readMailbox();
+                $emails = $reader->filterUnReadMessagesTo($targetEmailAddress);
                 $data = [];
 
                 $account->last_check = Carbon::createFromTimestamp(time());
