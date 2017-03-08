@@ -27,7 +27,10 @@
 </template>
 
 <script>
+	import saveState from 'vue-save-state';
+
     export default {
+        mixins: [saveState],
         data() {
             return {
                 emails: [],
@@ -36,6 +39,11 @@
             }
         },
         methods: {
+        	getSaveStateConfig() {
+				return {
+					'cacheKey': 'mailbox',
+				};
+			},
             readEmail(email) {
                 window.location.href = '/email/'+email['msgid'];
             }
