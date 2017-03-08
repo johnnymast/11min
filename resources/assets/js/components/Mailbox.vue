@@ -54,11 +54,11 @@
 
             /**
              * Get the initial messages on page load.
-
+             */
              axios.get('/system/messages').then(
              	response => this.emails = response.data
              );
-             */
+
 
             /**
              * Listen to the donations.channel where
