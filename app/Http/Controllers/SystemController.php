@@ -104,7 +104,7 @@ class SystemController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function displayMail($mailId = 0, Request $request)
+    public function displayMail(Request $request, $mailId = 0)
     {
         if ($mailId > 0) {
             dd($request->user());
