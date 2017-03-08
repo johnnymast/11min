@@ -41,12 +41,7 @@
         methods: {
         	getSaveStateConfig() {
 				return {
-					'cacheKey': 'mailbox',
-					 onLoad(key, value) {
-						console.log(key);
-						console.log(value);
-						//return a new value
-					},
+					'cacheKey': 'mailbox'
 				}
 			},
             readEmail(email) {
