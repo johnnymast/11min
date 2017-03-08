@@ -136,7 +136,7 @@ class SystemController extends Controller
                 ]);
 
             } catch (\Exception $e) {
-                dd($e);
+                dd($request->user());
                 abort(500);
             }
 
