@@ -106,6 +106,7 @@ class SystemController extends Controller
      */
     public function displayMail(Request $request, $mailId = 0)
     {
+        dd($request->user());
         if ($mailId > 0) {
 
             try {
