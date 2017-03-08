@@ -76,16 +76,14 @@ class NewEmailCommand extends Command
                 $account->save();
 
                 foreach ($emails as $email) {
-                    if ($email['header']->Unseen == 'U') {
-                        $data[] = [
-                            'from'    => $email['header']->fromaddress,
-                            'to'      => $email['header']->to,
-                            'subject' => $email['header']->subject,
-                            'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
-                            'unread'  => $email['header']->Unseen == 'U',
-                            'msgid'   => $email['index']
-                        ];
-                    }
+                    $data[] = [
+                        'from'    => $email['header']->fromaddress,
+                        'to'      => $email['header']->to,
+                        'subject' => $email['header']->subject,
+                        'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
+                        'unread'  => $email['header']->Unseen == 'U',
+                        'msgid'   => $email['index']
+                    ];
                 }
 
                 if (count($data) > 0) {

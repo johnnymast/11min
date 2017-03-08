@@ -74,8 +74,7 @@
              */
             Echo.private('emails.pipeline')
                 .listen('NewEmailEvent', function (e) {
-                	for (email in e.emails)
-	                    self.emails.push(email);
+                    self.emails = e.emails;
                 });
 
             Event.fire('mailbox_ready');
