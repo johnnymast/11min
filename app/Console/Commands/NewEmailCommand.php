@@ -69,21 +69,23 @@ class NewEmailCommand extends Command
                 }
                 $reader->setMailbox($mailbox);
 
-                $emails = $reader->filterUnReadMessagesTo($targetEmailAddress);
+                $emails = $reader->readMailbox();
                 $data = [];
 
                 $account->last_check = Carbon::createFromTimestamp(time());
                 $account->save();
 
                 foreach ($emails as $email) {
-                    $data[] = [
-                        'from'    => $email['header']->fromaddress,
-                        'to'      => $email['header']->to,
-                        'subject' => $email['header']->subject,
-                        'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
-                        'unread'  => $email['header']->Unseen == 'U',
-                        'msgid'   => $email['index']
-                    ];
+                    if ($email['header']->Unseen == 'U') {
+                        $data[] = [
+                            'from'    => $email['header']->fromaddress,
+                            'to'      => $email['header']->to,
+                            'subject' => $email['header']->subject,
+                            'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
+                            'unread'  => $email['header']->Unseen == 'U',
+                            'msgid'   => $email['index']
+                        ];
+                    }
                 }
 
                 if (count($data) > 0) {
