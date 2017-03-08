@@ -136,8 +136,7 @@ class SystemController extends Controller
                 ]);
 
             } catch (\Exception $e) {
-                dd($e);
-             //   abort(500);
+                abort(500);
             }
 
         } else {

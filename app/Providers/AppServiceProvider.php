@@ -29,7 +29,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
        App::bind('MailReader', function() {
-           die('caled');
            $reader = new MailReader();
            $reader->connect([
                'server'   => env('MAILREADER_HOST'),
