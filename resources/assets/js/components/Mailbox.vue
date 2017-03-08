@@ -43,6 +43,11 @@
 				return {
 					'cacheKey': 'mailbox',
 				};
+				'onLoad': (key, value) => {
+					console.log(key);
+					console.log(value);
+					//return a new value
+				},
 			},
             readEmail(email) {
                 window.location.href = '/email/'+email['msgid'];
