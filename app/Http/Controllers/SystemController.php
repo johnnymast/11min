@@ -19,7 +19,6 @@ class SystemController extends Controller
      */
     public function retireAccount(Request $request)
     {
-        dd($request->user());
         $request->user()->expired = true;
         $request->user()->save();
 
@@ -105,10 +104,10 @@ class SystemController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function displayMail(Request $request, $mailId = 0)
+    public function displayMail($mailId = 0, Request $request)
     {
         if ($mailId > 0) {
-
+            dd($request->user());
             try {
                 $reader = \App::make('MailReader');
 
