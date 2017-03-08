@@ -107,7 +107,6 @@ class SystemController extends Controller
     public function displayMail(Request $request, $mailId = 0)
     {
         if ($mailId > 0) {
-            dd($request->user());
             try {
                 $reader = \App::make('MailReader');
 
@@ -136,7 +135,6 @@ class SystemController extends Controller
                 ]);
 
             } catch (\Exception $e) {
-                dd($request);
                 abort(500);
             }
 
