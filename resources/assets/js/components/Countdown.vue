@@ -27,6 +27,7 @@
 </template>
 
 <script>
+    //var moment = require('moment');
 
     Vue.filter('two_digits', function (value) {
         if(value.toString().length <= 1)
