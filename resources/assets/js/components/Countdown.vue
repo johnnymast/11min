@@ -73,7 +73,7 @@
         computed: {
             expired() {
                 if (this.isMailboxReady == true) {
-                    if ((this.diffInSeconds) >= 0) {
+                    if ((this.diffInSeconds) <= 0) {
                         this.isExpired = true;
                         this.showModal = true;
 
