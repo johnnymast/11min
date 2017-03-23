@@ -39,6 +39,8 @@ class HomeController extends Controller
                 }
             }
 
+            $account['expires_at'] = date('Y-m-d H:i:s', strtotime($account['expires_at']));
+
             return view('home.show', [
                 'account' => $account->toArray(),
             ]);
