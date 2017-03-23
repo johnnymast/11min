@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-
     use AuthenticatesUsers;
 
 
@@ -22,9 +21,7 @@ class HomeController extends Controller
     {
         try {
             if (Auth::guard('mailboxes')->guest()) {
-
                 if (($account = Account::generate())) {
-
                     session([
                         'account' => $account->unique_id,
                         'email'   => $account->email
@@ -35,20 +32,16 @@ class HomeController extends Controller
                     Auth::guard('mailboxes')->login($account);
                 }
             } else {
-
                 $account = Auth::guard('mailboxes')->user();
 
-                if ( ! $account) {
+                if (! $account) {
                     return \Redirect::route('retire');
                 }
             }
 
-            $account['expires_at'] = Account::formatTimestamp(strtotime($account['expires_at']));
-
             return view('home.show', [
                 'account' => $account->toArray(),
             ]);
-
         } catch (\Exception $e) {
             return \Redirect::route('retire');
         }

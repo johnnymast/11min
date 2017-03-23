@@ -8,10 +8,18 @@ use Illuminate\Notifications\Notifiable;
 
 class Account extends Authenticatable
 {
-
     const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s';
 
     use Notifiable;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'expired_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -103,7 +111,6 @@ class Account extends Authenticatable
      */
     public static function generate()
     {
-
         $account = self::generateUniqueId();
         $email = $account.'@'.config('custom.mail_domain');
         $expires_at = \Carbon\Carbon::createFromTimestamp(strtotime("+10 MIN"));
