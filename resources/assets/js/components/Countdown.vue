@@ -61,10 +61,10 @@
         },
         methods: {
             addTime() {
-                axios.get('/system/increase').then(response => this.event = response.data.expires_at);
+                axios.get('/system/increase').then(({data}) => this.event = moment(data.expires_at));
             },
             resetTime() {
-                axios.get('/system/reset').then(response => this.event = response.data.expires_at);
+                axios.get('/system/reset').then(({data}) => this.event = moment(data.expires_at));
             },
             retireAccount() {
                 window.location.href = '/system/retire';
