@@ -54,7 +54,7 @@
                 countdown_interval: null,
                 remaining_interval: null,
                 now: moment(this.datetime),
-                event: this.date,
+                event:  moment(this.date),
                 isExpired: false,
                 isMailboxReady: false,
             }
