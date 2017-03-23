@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Account extends Authenticatable
 {
-    const EXPIRATION_TIME_FORMAT = 'D M d Y H:i:s';
+    const EXPIRATION_TIME_FORMAT = 'Y-m-d H:i:s';
 
     use Notifiable;
 
