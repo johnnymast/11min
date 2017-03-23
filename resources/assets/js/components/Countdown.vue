@@ -27,7 +27,7 @@
 </template>
 
 <script>
-    //var moment = require('moment');
+    var moment = require('moment');
 
     Vue.filter('two_digits', function (value) {
         if(value.toString().length <= 1)
@@ -39,7 +39,15 @@
 
     export default {
         props: {
-            date: null,
+            now: {
+                required: true,
+                default: null
+            },
+
+            expires: {
+                required: true,
+                default: null
+            }
         },
         data() {
             return {
@@ -101,6 +109,9 @@
             }
         },
         mounted() {
+
+            console.log(this.now)
+            console.log(this.expires)
 
             this.remaining_interval = window.setInterval(() => {
          //       if (this.expired == false)
