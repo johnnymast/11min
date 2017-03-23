@@ -39,7 +39,7 @@
 
     export default {
         props: {
-            now: {
+            datetime: {
                 required: true,
                 default: null
             },
@@ -53,7 +53,7 @@
             return {
                 countdown_interval: null,
                 remaining_interval: null,
-                now: Math.trunc((new Date()).getTime() / 1000),
+                now: moment(this.datetime),
                 event: this.date,
                 isExpired: false,
                 isMailboxReady: false,
