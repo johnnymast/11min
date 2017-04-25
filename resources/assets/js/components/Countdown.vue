@@ -27,6 +27,7 @@
 </template>
 
 <script>
+    var moment = require('moment');
 
     Vue.filter('two_digits', function (value) {
         if(value.toString().length <= 1)
@@ -38,24 +39,32 @@
 
     export default {
         props: {
-            date: null,
+            datetime: {
+                required: true,
+                default: null
+            },
+
+            expires: {
+                required: true,
+                default: null
+            }
         },
         data() {
             return {
                 countdown_interval: null,
                 remaining_interval: null,
-                now: Math.trunc((new Date()).getTime() / 1000),
-                event: this.date,
+                now: moment(this.datetime),
+                event:  moment(this.expires),
                 isExpired: false,
                 isMailboxReady: false,
             }
         },
         methods: {
             addTime() {
-                axios.get('/system/increase').then(response => this.event = response.data.expires_at);
+                axios.get('/system/increase').then(({data}) => this.event = moment(data.expires_at));
             },
             resetTime() {
-                axios.get('/system/reset').then(response => this.event = response.data.expires_at);
+                axios.get('/system/reset').then(({data}) => this.event = moment(data.expires_at));
             },
             retireAccount() {
                 window.location.href = '/system/retire';
@@ -63,44 +72,41 @@
         },
         computed: {
             expired() {
-            	if (this.isMailboxReady == true) {
-					if ((this.now - this.calculateDate) >= 0) {
-						this.isExpired = true;
-						this.showModal = true;
+                if (this.isMailboxReady == true) {
+                    if ((this.diffInSeconds) <= 0) {
+                        this.isExpired = true;
+                        this.showModal = true;
 
-						Event.fire('expired',
-						true);
+                        Event.fire('expired',
+                        true);
 
-						return true;
-					}
+                        return true;
+                    }
 
-					if (this.isExpired == true) {
-						this.isExpired = false
-						Event.fire('expired', false);
-					}
-				}
+                    if (this.isExpired == true) {
+                        this.isExpired = false
+                        Event.fire('expired', false);
+                    }
+                }
                 return false;
             },
-            calculateDate() {
-                this.event = Math.trunc(Date.parse(this.event) / 1000);
-                return this.event;
-            },
             seconds() {
-                return (this.calculateDate - this.now) % 60;
+                return (this.diffInSeconds) % 60;
             },
-
             minutes() {
-                return Math.trunc((this.calculateDate - this.now) / 60) % 60;
+                return Math.trunc((this.diffInSeconds) / 60) % 60;
             },
             hours() {
-                return Math.trunc((this.calculateDate - this.now) / 60 / 60) % 24;
+                return Math.trunc((this.diffInSeconds) / 60 / 60) % 24;
             },
             days() {
-                return Math.trunc((this.calculateDate - this.now) / 60 / 60 / 24);
+                return Math.trunc((this.diffInSeconds) / 60 / 60 / 24);
+            },
+            diffInSeconds() {
+                return this.event.diff(this.now, 'seconds')
             }
         },
         mounted() {
-
             this.remaining_interval = window.setInterval(() => {
          //       if (this.expired == false)
              //       axios.get('/system/time').then(response => this.event = response.data.expires_at);
@@ -108,11 +114,11 @@
 
             this.countdown_interval = window.setInterval(() => {
                 if (this.expired == false)
-                    this.now = Math.trunc((new Date()).getTime() / 1000);
+                    this.now = moment(this.now).add(1, 'second')
             }, 1000);
 
             Event.listen('mailbox_ready', () => {
-				this.isMailboxReady = true;
+                this.isMailboxReady = true;
             });
         }
     }

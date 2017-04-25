@@ -21,7 +21,7 @@
             <a class="copy-to-clipboard button is-info" data-clipboard-target="#temp_email">Copy to
                 clipboard</a>
         </p>
-        <countdown date="{{ $account['expires_at'] }}"></countdown>
+        <countdown datetime="{{ date('Y-m-d H:i:s') }}" expires="{{ $account['expires_at'] }}"></countdown>
     </div>
 @endsection
 

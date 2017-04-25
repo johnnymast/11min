@@ -25,7 +25,7 @@ Route::group([
      * Display user email
      */
     Route::get('/email/{mailId}', 'SystemController@displayMail')
-        ->middleware('is_valid_account');
+        ->middleware(['is_valid_account', 'auth:mailboxes']);
 
     /**
      * Display and handle the contact form
