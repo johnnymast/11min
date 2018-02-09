@@ -12,10 +12,9 @@
 */
 
 Route::group([
-    'prefix'     => '/',
+    'prefix' => '/',
     'middleware' => ['minify_html']
 ], function () {
-
     /**
      * Display pages
      */
@@ -40,10 +39,9 @@ Route::group([
 });
 
 Route::group([
-    'prefix'     => '/system',
+    'prefix' => '/system',
     'middleware' => ['minify_html', 'is_valid_account', 'auth:mailboxes']
 ], function () {
-
     /**
      * Increase the time for this account by 10 minutes
      */

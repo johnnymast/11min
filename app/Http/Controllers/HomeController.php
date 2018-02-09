@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     use AuthenticatesUsers;
 
-
     /**
      * Welcome's the user and create its account.
      *
@@ -20,11 +19,13 @@ class HomeController extends Controller
     public function show()
     {
         try {
+            Auth::logout();
+
             if (Auth::guard('mailboxes')->guest()) {
                 if (($account = Account::generate())) {
                     session([
                         'account' => $account->unique_id,
-                        'email'   => $account->email
+                        'email' => $account->email
                     ]);
 
                     $account->notify(new WelcomeMail($account));
@@ -34,7 +35,7 @@ class HomeController extends Controller
             } else {
                 $account = Auth::guard('mailboxes')->user();
 
-                if (! $account) {
+                if (!$account) {
                     return \Redirect::route('retire');
                 }
             }
