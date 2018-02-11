@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-//use App\Notifications\WelcomeMail;
+use App\Events\AccountCreated;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,8 +26,7 @@ class HomeController extends Controller
                         'email' => $account->email,
                     ]);
 
-                    //$account->notify(new WelcomeMail($account));
-
+                    event(new AccountCreated($account));
                     Auth::guard('mailboxes')->login($account);
                 }
             } else {
@@ -36,7 +35,6 @@ class HomeController extends Controller
                 $account = Auth::guard('mailboxes')->user();
 
                 if (! $account) {
-                    dd('retire');
                     return \Redirect::route('retire');
                 }
             }
@@ -47,8 +45,10 @@ class HomeController extends Controller
                 'account' => $account->toArray(),
             ]);
         } catch (\Exception $e) {
-            dd($e);
-           // return \Redirect::route('retire');
+            /**
+             * FIXME: This could lead to a endless loop if the above code generates an exception.
+             */
+            return \Redirect::route('retire');
         }
     }
 }

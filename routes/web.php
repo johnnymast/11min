@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/mail', function(\Illuminate\Http\Request $request) {
+    return new  \App\Mail\WelcomeMail();
+});
+
 Route::group([
     'prefix' => '/',
     'middleware' => ['minify_html']
