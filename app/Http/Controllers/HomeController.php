@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Events\AccountCreated;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -18,7 +20,10 @@ class HomeController extends Controller
      */
     public function show()
     {
+        //Log::debug('An informational message.');
         try {
+            throw new \Exception("bad");
+
             if (Auth::guard('mailboxes')->guest()) {
                 if (($account = Account::generate())) {
                     session([
@@ -45,10 +50,7 @@ class HomeController extends Controller
                 'account' => $account->toArray(),
             ]);
         } catch (\Exception $e) {
-            /**
-             * FIXME: This could lead to a endless loop if the above code generates an exception.
-             */
-            return \Redirect::route('retire');
+            \App::abort(500, 'Something bad happened');
         }
     }
 }
