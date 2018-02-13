@@ -22297,3 +22297,12 @@ input[type=range].slider.is-danger .has-output-tooltip + output {
   color: #fff;
 }
 
+.grecaptcha-badge {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+iframe[src^="https://www.google.com/recaptcha/api2/anchor"] {
+  visibility: hidden;
+}
+

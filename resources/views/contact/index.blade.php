@@ -78,6 +78,7 @@
         </p>
 
         <div class="control is-grouped">
+            @captcha
         </div>
         <div class="control is-grouped">
             <p class="control">

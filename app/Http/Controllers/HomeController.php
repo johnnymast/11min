@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Events\AccountCreated;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -20,9 +18,7 @@ class HomeController extends Controller
      */
     public function show()
     {
-        //Log::debug('An informational message.');
         try {
-            throw new \Exception("bad");
 
             if (Auth::guard('mailboxes')->guest()) {
                 if (($account = Account::generate())) {
@@ -36,11 +32,10 @@ class HomeController extends Controller
                 }
             } else {
 
-
                 $account = Auth::guard('mailboxes')->user();
 
                 if (! $account) {
-                    return \Redirect::route('retire');
+                    throw new \Exception("Could not find user account. Maybe cookies are disabled.");
                 }
             }
 

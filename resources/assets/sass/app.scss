@@ -12,3 +12,12 @@
 // Variables
 @import "bulma";
 
+
+.grecaptcha-badge {
+  box-shadow: none !important;
+}
+
+iframe[src^="https://www.google.com/recaptcha/api2/anchor"] {
+  visibility: hidden;
+}
+

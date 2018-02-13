@@ -29,7 +29,7 @@ class ContactController extends Controller
             'email' => 'required|email',
             'subject' => 'required',
             'message' => 'required',
-            //'g-recaptcha-response' => 'required|recaptcha',
+            'g-recaptcha-response' => 'required|recaptcha'
         ]);
 
         Mail::to(config('custom.admin_email'))->send(new ContactEmail($data));

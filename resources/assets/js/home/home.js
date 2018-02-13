@@ -25,3 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var clipboard = new Clipboard('.copy-to-clipboard');
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  let box = document.querySelector('.grecaptcha-badge');
+  box.style.boxShadow = 'none'
+});
