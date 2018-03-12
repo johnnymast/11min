@@ -47,6 +47,9 @@ Route::group([
      */
     Route::get('/increase', 'SystemController@addTime');
 
+
+    Route::get('/force', 'SystemController@force');
+
     /**
      * Reset the time to the time now + 10 minutes
      */

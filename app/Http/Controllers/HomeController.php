@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function show()
     {
         try {
-            Auth::logout();
+            //Auth::logout();
 
             if (Auth::guard('mailboxes')->guest()) {
                 if (($account = Account::generate())) {
@@ -28,10 +28,14 @@ class HomeController extends Controller
                         'email' => $account->email
                     ]);
 
-                    $account->notify(new WelcomeMail($account));
+                    /**
+                     * At Timeout of 30 sec check the email settings in .env
+                     */
+                    //$account->notify(new WelcomeMail($account));
 
                     Auth::guard('mailboxes')->login($account);
                 }
+
             } else {
                 $account = Auth::guard('mailboxes')->user();
 
@@ -46,6 +50,7 @@ class HomeController extends Controller
                 'account' => $account->toArray(),
             ]);
         } catch (\Exception $e) {
+            exit;
             return \Redirect::route('retire');
         }
     }
