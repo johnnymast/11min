@@ -10,6 +10,10 @@
     <meta name="pusher-key" content="{{ env('PUSHER_KEY')}}">
 
     <title>{{ config('app.name') }}</title>
+    <script type="text/javascript">
+        var pusher_key = '{{env('PUSHER_APP_KEY')}}'
+
+    </script>
     @yield('header_extra_meta_tags')
 
     <!--[if IE]><link rel="shortcut icon" href="/favicon.ico"><![endif]-->

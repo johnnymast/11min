@@ -101,7 +101,7 @@ class SystemController extends Controller
             'subject' => 'Subject 1',
             'when' => 'date',
             'unread' => 1,
-            'msgid' => 0,
+            'msgid' => 1,
         ];
 
         $data[] = [
@@ -110,9 +110,17 @@ class SystemController extends Controller
             'subject' => 'Subject 2',
             'when' => 'date',
             'unread' => 1,
-            'msgid' => 0,
+            'msgid' => 2,
         ];
 
+        $data[] = [
+            'from' => 'mastjohnny@gmail.com',
+            'to' => $request->user()->email,
+            'subject' => 'Subject 3',
+            'when' => 'date',
+            'unread' => 1,
+            'msgid' => 3,
+        ];
 
         if (count($data) > 0) {
             event(new NewEmailEvent($data));

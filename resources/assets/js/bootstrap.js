@@ -48,6 +48,6 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: 'ccb6f4cc5b96991bd773',
+    key: pusher_key,
     cluster: 'eu'
 });

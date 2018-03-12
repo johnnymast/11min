@@ -34848,7 +34848,7 @@ window.Pusher = __webpack_require__(158);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: 'ccb6f4cc5b96991bd773',
+  key: pusher_key,
   cluster: 'eu'
 });
 
