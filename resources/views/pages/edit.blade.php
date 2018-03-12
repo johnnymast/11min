@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.home')
 
 @section('header_extra_scripts')
     {{--<script src="/js/ckeditor/ckeditor.js"></script>--}}

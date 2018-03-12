@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PageFormRequest;
-use App\Page;
 use Illuminate\Http\Request;
+use App\Page;
 
 class PagesController extends Controller
 {
@@ -15,8 +14,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view ('pages.index')
-            ->withPages(\App\Page::all());
+        return view('pages.index')->withPages(\App\Page::all());
     }
 
     /**
@@ -32,26 +30,23 @@ class PagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\PageFormRequest  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PageFormRequest $request)
+    public function store(Request $request)
     {
-        $page = \App\Page::create($request->all() + ['user_id' =>\Auth::user()->id]);
+        $page = \App\Page::create($request->all() + ['user_id' => \Auth::user()->id]);
 
-        return \Redirect::route('pages.edit', $page['id'])
-            ->with('message', 'Page created!');
+        return \Redirect::route('pages.edit', $page['id'])->with('message', 'Page created!');
     }
 
-
     /**
-     * @param Page $page
+     * @param \App\Page $page
+     * @return mixed
      */
     public function show(Page $page)
     {
-        return view('pages.show')
-            ->withPage($page)
-            ->withSlug('page/'.$page['slug']);
+        return view('pages.show')->withPage($page)->withSlug('page/'.$page['slug']);
     }
 
     /**
@@ -62,20 +57,18 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('pages.edit')
-            ->withPage($page);
+        return view('pages.edit')->withPage($page);
     }
-
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\PageFormRequest $request
+     * @param \Illuminate\Http\Request $request
      * @param  \App\Page $page
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(PageFormRequest $request, Page $page)
+    public function update(Request $request, Page $page)
     {
         $data = $request->all();
         if (isset($data['active']) == false) {
@@ -83,6 +76,7 @@ class PagesController extends Controller
         }
 
         $page->update($data);
+
         return \Redirect::route('pages.edit', $page['id'])->with('message', 'Page updated!');
     }
 
@@ -95,6 +89,7 @@ class PagesController extends Controller
     public function destroy(Page $page)
     {
         $page->destroy($page['id']);
+
         return \Redirect::route('pages.index')->with('message', 'Page deleted!');
     }
 }

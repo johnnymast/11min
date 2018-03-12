@@ -1,5 +1,5 @@
 <template>
-    <table class="table is-bordered is-narro">
+    <table class="table is-bordered is-hoverable is-fullwidth">
         <thead>
         <tr>
             <th>From</th>

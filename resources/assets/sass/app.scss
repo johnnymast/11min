@@ -1,9 +1,23 @@
 
+@charset "UTF-8";
+
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400|Roboto:100);
+
+
+// Fontawesome
+@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Variables
-@import "variables";
+@import "bulma";
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.grecaptcha-badge {
+  box-shadow: none !important;
+}
+
+iframe[src^="https://www.google.com/recaptcha/api2/anchor"] {
+  visibility: hidden;
+}
+

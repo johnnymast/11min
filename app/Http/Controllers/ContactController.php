@@ -2,41 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ContactFormRequest;
-use App\Notifications\ContactRequestMail;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request;
+use App\Mail\ContactEmail;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    use Notifiable;
-
     /**
-     * @var mixed|string
-     */
-    public $email = '';
-
-
-    public function __construct()
-    {
-        $this->email = config('custom.admin_email');
-    }
-
-
-    /**
-     * @param ContactFormRequest $request
-     */
-    public function store(ContactFormRequest $request)
-    {
-        $this->notify(new ContactRequestMail($request));
-        return \Redirect::route('contact')->with('message', 'Thanks for contacting us!');
-    }
-
-
-    /**
+     * Display a listing of the resource.
      *
+     * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function index()
     {
-        return view('contact.show');
+        return view('contact.index');
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return mixed
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+            'g-recaptcha-response' => 'required|recaptcha'
+        ]);
+
+        Mail::to(config('custom.admin_email'))->send(new ContactEmail($data));
+
+        return \Redirect::route('contact.index')->with('message', 'Thanks for contacting us!');
     }
 }

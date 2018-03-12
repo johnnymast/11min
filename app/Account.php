@@ -18,7 +18,7 @@ class Account extends Authenticatable
      * @var array
      */
     protected $dates = [
-        'expired_at'
+        'expired_at',
     ];
 
     /**
@@ -30,7 +30,7 @@ class Account extends Authenticatable
         'unique_id',
         'email',
         'expired',
-        'expires_at'
+        'expires_at',
     ];
 
     /**
@@ -42,7 +42,6 @@ class Account extends Authenticatable
         'remember_token',
     ];
 
-
     /**
      * Return a list of accounts marked with the
      * expired bit in database.
@@ -53,7 +52,6 @@ class Account extends Authenticatable
     {
         return $this->where('expired', true)->get();
     }
-
 
     /**
      * Get an array of accounts that are not being used between 2 hours ago and 1 hour ago
@@ -71,10 +69,9 @@ class Account extends Authenticatable
     {
         return $this->whereBetween('last_check', [
             Carbon::now()->subHours(2),
-            Carbon::now()->subHours(1)
+            Carbon::now()->subHours(1),
         ])->where('expired', false)->where('expires_at', '<', Carbon::now())->get();
     }
-
 
     /**
      * Return a list of active mail accounts on the system.
@@ -83,7 +80,6 @@ class Account extends Authenticatable
     {
         return self::whereExpired(false)->get();
     }
-
 
     /**
      * Create a nicely formatted time notation. Probably in the future
@@ -102,7 +98,6 @@ class Account extends Authenticatable
         return date(self::EXPIRATION_TIME_FORMAT, $timestamp);
     }
 
-
     /**
      * Create a new mail account and random unique_id.
      *
@@ -116,15 +111,14 @@ class Account extends Authenticatable
         $expires_at = \Carbon\Carbon::createFromTimestamp(strtotime("+10 MIN"));
 
         $account = Account::create([
-            'unique_id'  => $account,
-            'email'      => $email,
-            'expired'    => false,
-            'expires_at' => $expires_at
+            'unique_id' => $account,
+            'email' => $email,
+            'expired' => false,
+            'expires_at' => $expires_at,
         ]);
 
         return $account;
     }
-
 
     /**
      * Create a unique_id for a new account to use.
@@ -136,7 +130,7 @@ class Account extends Authenticatable
         $number = mt_rand(1000, 999999); // better than rand()
 
         if (self::whereUniqueId($number)->exists()) {
-            return generateBarcodeNumber();
+            return self::generateUniqueId();
         }
 
         return $number;

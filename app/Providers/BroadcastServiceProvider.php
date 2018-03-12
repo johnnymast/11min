@@ -14,15 +14,8 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Broadcast::routes(['middleware' => ['web', 'auth:mailboxes']]);
+        Broadcast::routes();
 
-        /*
-         * Authenticate the user's personal channel...
-         */
-        Broadcast::channel('emails.pipeline',  function () {
-            if (true) { // Replace with real ACL
-                return true;
-            }
-        });
+        require base_path('routes/channels.php');
     }
 }

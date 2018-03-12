@@ -16,6 +16,7 @@ class PagesServiceProvider extends ServiceProvider
     {
         Route::bind('pages_slug', function($slug = '') {
             return \App\Page::where('slug', $slug)->where('active', true)->first();
+            return \App\Page::where('slug', $slug)->where('active', true)->firstOrFail();
         });
     }
 

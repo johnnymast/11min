@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
     use Notifiable;
 
     /**
@@ -16,10 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'bio'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -28,21 +24,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
-        'admin'
+        'password', 'remember_token',
     ];
-
-
-    /**
-     * Create a hasMany relation for pages so that we can get
-     * all pages for a user. Note this method is not used at
-     * the moment.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function pages()
-    {
-        return $this->hasMany('\App\Page', 'target_user');
-    }
 }

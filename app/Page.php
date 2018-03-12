@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -20,9 +19,8 @@ class Page extends Model
         'user_id',
         'active',
         'seo_tags',
-        'seo_description'
+        'seo_description',
     ];
-
 
     /**
      * Create a belongsTo relation between an page and its author.
@@ -34,7 +32,6 @@ class Page extends Model
     {
         return $this->belongsTo('\App\User', 'user_id');
     }
-
 
     /**
      * Return an array of alle active pages on the system.

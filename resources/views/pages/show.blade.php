@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.home')
 
 @section('header_extra_meta_tags')
     <meta name="robots" content="index, follow">

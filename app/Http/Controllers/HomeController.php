@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Account;
-use App\Notifications\WelcomeMail;
+use App\Events\AccountCreated;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,28 +19,23 @@ class HomeController extends Controller
     public function show()
     {
         try {
-            //Auth::logout();
 
             if (Auth::guard('mailboxes')->guest()) {
                 if (($account = Account::generate())) {
                     session([
                         'account' => $account->unique_id,
-                        'email' => $account->email
+                        'email' => $account->email,
                     ]);
 
-                    /**
-                     * At Timeout of 30 sec check the email settings in .env
-                     */
-                    //$account->notify(new WelcomeMail($account));
-
+                    event(new AccountCreated($account));
                     Auth::guard('mailboxes')->login($account);
                 }
-
             } else {
+
                 $account = Auth::guard('mailboxes')->user();
 
-                if (!$account) {
-                    return \Redirect::route('retire');
+                if (! $account) {
+                    throw new \Exception("Could not find user account. Maybe cookies are disabled.");
                 }
             }
 
@@ -50,8 +45,7 @@ class HomeController extends Controller
                 'account' => $account->toArray(),
             ]);
         } catch (\Exception $e) {
-            exit;
-            return \Redirect::route('retire');
+            \App::abort(500, 'Something bad happened');
         }
     }
 }
