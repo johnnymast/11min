@@ -38,6 +38,7 @@ Route::group([
      * Reset the time to the time now + 10 minutes
      */
     Route::get('/reset', 'SystemController@resetTime');
+    Route::get('/force', 'SystemController@force');
     /**
      * Get the messages arrived in the user's mailbox
      */

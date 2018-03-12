@@ -27,6 +27,9 @@ class HomeController extends Controller
                         'email' => $account->email,
                     ]);
 
+                    /**
+                     * On windows this can give a timeout
+                     */
                     event(new AccountCreated($account));
                     Auth::guard('mailboxes')->login($account);
                 }

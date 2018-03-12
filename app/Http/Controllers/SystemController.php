@@ -94,8 +94,6 @@ class SystemController extends Controller
 
     public function force(Request $request)
     {
-
-        //dd($request->user());
         $data = [];
         $data[] = [
             'from' => 'mastjohnny@gmail.com',
