@@ -30,7 +30,7 @@ class HomeController extends Controller
                     /**
                      * On windows this can give a timeout
                      */
-                    event(new AccountCreated($account));
+                    //event(new AccountCreated($account));
                     Auth::guard('mailboxes')->login($account);
                 }
             } else {

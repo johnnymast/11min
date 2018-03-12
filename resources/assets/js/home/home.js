@@ -28,5 +28,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
   let box = document.querySelector('.grecaptcha-badge');
-  box.style.boxShadow = 'none'
+  // box.style.boxShadow = 'none'
 });

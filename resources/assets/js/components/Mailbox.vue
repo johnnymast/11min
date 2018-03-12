@@ -74,6 +74,7 @@
              */
             Echo.private('emails.pipeline')
                 .listen('NewEmailEvent', function (e) {
+                  console.log('INCOMMING!!')
                     self.emails = e.emails;
                 });
 
