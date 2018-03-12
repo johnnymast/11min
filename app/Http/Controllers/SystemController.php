@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Account;
+use App\Events\NewEmailEvent; // !!!
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SystemController extends Controller
 {
-
     /**
      * Retire this account and redirect to
      * the 'home' route.
@@ -33,7 +33,6 @@ class SystemController extends Controller
         return \Redirect::route('home');
     }
 
-
     /**
      * Return a json array with information
      * of when this account will expire.
@@ -44,14 +43,13 @@ class SystemController extends Controller
     public function timeRemaining(Request $request)
     {
         $data = [
-            'expires_at' => session('expires_at', Account::formatTimestamp())
+            'expires_at' => session('expires_at', Account::formatTimestamp()),
         ];
 
         $data['expires_at'] = Account::formatTimestamp(strtotime($request->user()->expires_at));
 
         return $data;
     }
-
 
     /**
      * User pressed the "INCREASE TIME +10 MINUTES". This will give the user
@@ -64,7 +62,7 @@ class SystemController extends Controller
     public function addTime(Request $request)
     {
         $data = [
-            'expires_at' => session('expires_at', Account::formatTimestamp())
+            'expires_at' => session('expires_at', Account::formatTimestamp()),
         ];
 
         $newTime = strtotime("+10 MIN", strtotime($request->user()->expires_at));
@@ -75,7 +73,6 @@ class SystemController extends Controller
 
         return $data;
     }
-
 
     /**
      * When the account is expired the user will be promoted with a modal
@@ -95,12 +92,40 @@ class SystemController extends Controller
         return $data;
     }
 
+    public function force(Request $request)
+    {
+
+        //dd($request->user());
+        $data = [];
+        $data[] = [
+            'from' => 'mastjohnny@gmail.com',
+            'to' => $request->user()->email,
+            'subject' => 'Subject 1',
+            'when' => 'date',
+            'unread' => 1,
+            'msgid' => 0,
+        ];
+
+        $data[] = [
+            'from' => 'mastjohnny@gmail.com',
+            'to' => $request->user()->email,
+            'subject' => 'Subject 2',
+            'when' => 'date',
+            'unread' => 1,
+            'msgid' => 0,
+        ];
+
+
+        if (count($data) > 0) {
+            event(new NewEmailEvent($data));
+        }
+    }
 
     /**
      * This function will display an email message to the user.
      *
      * @param Request $request
-     * @param int     $mailId
+     * @param int $mailId
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -115,7 +140,7 @@ class SystemController extends Controller
 
                 $email = $reader->getMessage($mailId);
 
-                if ( ! $email) {
+                if (! $email) {
                     throw new \Exception("Email not found", 200);
                 }
 
@@ -123,21 +148,19 @@ class SystemController extends Controller
                  * Todo filter script tags
                  */
                 $data = [
-                    'from'    => $email['header']->fromaddress,
-                    'to'      => $email['header']->toaddress,
+                    'from' => $email['header']->fromaddress,
+                    'to' => $email['header']->toaddress,
                     'subject' => $email['header']->subject,
-                    'when'    => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
-                    'body'    => $email['body']
+                    'when' => Carbon::createFromTimestamp(strtotime($email['header']->date))->diffForHumans(),
+                    'body' => $email['body'],
                 ];
 
                 return view('email.show', [
                     'email' => $data,
                 ]);
-
             } catch (\Exception $e) {
                 abort(500);
             }
-
         } else {
             abort(404);
         }
